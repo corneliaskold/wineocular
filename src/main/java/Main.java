@@ -26,7 +26,7 @@ public class Main {
 
         HttpResponse<JsonNode> response;
 
-        try {
+        /*try {
             response = Unirest.get("http://xn--ssongsmat-v2a.nu/w/api.php?action=query&title=gurka&format=json")
                     .queryString("format", "json")
                     .asJson();
@@ -34,7 +34,16 @@ public class Main {
         } catch (UnirestException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
+        }*/
+
+        try {
+            response = Unirest.get("https://api.spoonacular.com/recipes/findByIngredients?ingredients=apples,flour,sugar&number=2&apiKey=cae37f32b37e4c3a9375f05f796efd79").asJson();
+            System.out.println(response.getBody());
+        } catch(UnirestException e) {
+
         }
+
+
 
 
     }
