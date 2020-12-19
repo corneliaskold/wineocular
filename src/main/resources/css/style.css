@@ -49,11 +49,39 @@ body {
 /* --- START - Hero --- */
 .hero {
     display: flex;
+    
     height: 700px;
-    padding-top: 200px;
-    background-color: #8BCBFA;
+
+    padding-top: 100px;
+    padding-bottom: 20px;
+
+    background-color: #8BCBFA; /* Blå  #8BCBFA */
 }
 /* --- END - Hero --- */
+
+/* --- START - Seasonal --- */
+
+.seasonal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-image: url(../images/harvest.jpg);
+    background-color: #cbf0c2;
+    background-position: center;
+
+    height: 675px;
+}
+
+.seasonal article {
+    background-color: rgba(255, 255, 255, 0.8);
+    width: 50%;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #666;
+}
+
+/* --- END --- */
 
 /* --- START - Footer --- */
 
