@@ -59,6 +59,27 @@ body {
 }
 /* --- END - Hero --- */
 
+/* --- START - Choose Wine --- */
+
+.choose {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: #D0D0D0;
+    background-position: center;
+
+    height: 675px;
+}
+
+.choose article {
+    width: 50%;
+    text-align: center;
+    padding: 20px;
+}
+
+/* --- END - Choose Wine--- */
+
 /* --- START - Seasonal --- */
 
 .seasonal {
@@ -66,22 +87,61 @@ body {
     justify-content: center;
     align-items: center;
 
-    background-image: url(../images/harvest.jpg);
-    background-color: #cbf0c2;
+    background-image: url(../images/food-banner.png);
+    background-color: #D0D0D0;
     background-position: center;
 
     height: 675px;
 }
 
 .seasonal article {
-    background-color: rgba(255, 255, 255, 0.8);
+    color: #FFFFFF;
+    text-align: center;
     width: 50%;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #666;
+
 }
 
-/* --- END --- */
+.seasonal article h1 {
+    font-size: 60px;
+}
+
+.seasonal article p {
+    font-size: 30px;
+}
+
+/* --- END - Seasonal --- */
+
+/* --- START - Red Grapes --- */
+
+.red_grapes {
+    justify-content: center;
+    align-items: center;
+
+    background-color: #D0D0D0;
+    background-position: center;
+
+    height: 675px;
+}
+
+.red_grapes h1 {
+    font-size: 60px;
+    text-align: center;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    padding: 10px;
+  }
+
+  .grid-item {
+    padding: 20px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+/* --- END - Red Grapes --- */
 
 /* --- START - Footer --- */
 
