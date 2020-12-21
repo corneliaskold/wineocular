@@ -25,7 +25,7 @@ public class RecipeGetter {
 
             getRecipeInfo(response);
 
-        } catch(UnirestException e) {
+        } catch (UnirestException e) {
 
         }
     }
@@ -36,7 +36,7 @@ public class RecipeGetter {
         JSONArray recipes = json.getArray();
         StringBuilder ids = new StringBuilder();
 
-        for(int i = 0; i<recipes.length(); i++) {
+        for (int i = 0; i < recipes.length(); i++) {
             JSONObject recipe = recipes.getJSONObject(i);
             int id = recipe.getInt("id");
             String title = recipe.getString("title");
@@ -60,10 +60,9 @@ public class RecipeGetter {
             //System.out.println(response2.getBody());
             printRecipes(response2);
 
-        } catch(UnirestException e) {
+        } catch (UnirestException e) {
 
         }
-
 
 
     }
@@ -73,13 +72,13 @@ public class RecipeGetter {
         JsonNode json = response2.getBody();
         JSONArray recipes = json.getArray();
 
-        for(int i = 0; i<recipes.length(); i++) {
+        for (int i = 0; i < recipes.length(); i++) {
             JSONObject recipe = recipes.getJSONObject(i);
 
 
             System.out.println(recipe.getString("title"));
             JSONArray ingredients = recipe.getJSONArray("extendedIngredients");
-            for(int j = 0; j<ingredients.length(); j++) {
+            for (int j = 0; j < ingredients.length(); j++) {
                 JSONObject ingredient = ingredients.getJSONObject(j);
                 System.out.print(ingredient.getString("name") + ", ");
             }
@@ -88,7 +87,6 @@ public class RecipeGetter {
             System.out.println(recipe.getString("sourceUrl"));
         }
     }
-
 
 
 }

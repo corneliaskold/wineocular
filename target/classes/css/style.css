@@ -1,0 +1,115 @@
+body {
+    display: flex;
+    font-family: 'Helvetica', Arial, Helvetica, sans-serif;
+    flex-direction: column;
+}
+
+/* --- START - Header--- */
+.site-header {
+    position: fixed;
+    background-color: #ffffff;
+    border-bottom: 1px solid #000000;
+    left: 0px;
+    right: 0px;
+}
+
+.site-header__wrapper nav {
+    display: flex;
+    max-width: 1920px;
+    height: 80px;
+    align-items: center;    /* centrerar texten i flex-boxarna i cross-axis(vertikalt) */
+}
+
+.site-header__wrapper nav a {
+    color: #000000;
+    text-decoration: none;  /* Tar bort understruket från länk */
+    padding: 0px 15px; /* Mellanrum mellan länkar */ 
+}
+
+.nav a {
+    font-size: 20px;
+}
+
+.nav .logo {
+    display: flex;
+    font-family: 'Pacifico', sans-serif;
+    font-size: 40px;
+}
+
+.left-items {
+    display: flex;
+    flex-grow: 1;
+}
+
+.right-items {
+    display: flex;
+}
+/* --- END - Header --- */
+
+/* --- START - Hero --- */
+.hero {
+    display: flex;
+    height: 700px;
+    padding-top: 200px;
+    background-color: #8BCBFA;
+}
+/* --- END - Hero --- */
+
+/* --- START - Footer --- */
+
+.ft-main {
+    display: flex;
+    background-color: #D0D0D0;
+    color: #3D3D3D;
+    padding: 40px 40px;
+    justify-content: space-between;
+}
+
+.ft-main-left {
+    display: flex;
+    flex-direction: column;
+    max-width: 45ch;
+}
+
+.ft-main-left .logo {
+    font-family: 'Pacifico', sans-serif;
+    font-size: 40px;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+    line-height: 2;
+}
+
+.ft-main a {
+    text-decoration: none;
+    color: #3D3D3D;
+}
+
+.ft-title {
+    color: #3D3D3D;
+    font-size: 20px;
+}
+
+.ft-main-right {
+    display: flex;
+}
+
+.ft-main-item {
+    padding: 0px 30px;
+}
+
+.ft-main-left .mau {
+    padding: 20px 0px;
+}
+
+.ft-legal {
+    display: flex;
+    background: #EBEBEB;
+    height: 39px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* --- END - Footer --- */
