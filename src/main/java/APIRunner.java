@@ -61,3 +61,14 @@ public class APIRunner {
         return types.get(0);
     }
 }
+
+
+// Att göra - få upp alla recept i receptboken som matchar det vin vi sökt på
+// skicka en get till en lista på recept  - för att presentera resultatet
+// Cornelia skriver en receptbok - api behöver metod att hämta receptboken
+// get - för att hämta receptboken så att html-koden kan hämta den.
+
+// receptboken kommer skapas som ett json-objekt till hemsidan,
+//
+
+//
