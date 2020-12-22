@@ -1,6 +1,8 @@
 public class Recipe {
-    public String title = null;
-    public String description = null;
+    public String title;
+    public String[] ingredients;
+    public String description;
+    public String imageURL;
     public int id;
 
     public Recipe(){
