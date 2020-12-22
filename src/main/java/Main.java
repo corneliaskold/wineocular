@@ -51,7 +51,7 @@ public class Main {
 
         }*/
 
-        RecipeGetter rg = new RecipeGetter("scallions,+garlic,+pasta,+cauliflower");
+      //  RecipeGetter rg = new RecipeGetter("scallions,+garlic,+pasta,+cauliflower");
 
 
     }
