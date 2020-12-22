@@ -7,9 +7,12 @@ import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
 
 public class Main {
-
-
     public static void main(String[] args) {
+        Controller controller = new Controller();
+
+
+
+
        /* port(2020);
         Gson gson = new Gson();
 
@@ -49,9 +52,6 @@ public class Main {
         }*/
 
         RecipeGetter rg = new RecipeGetter("scallions,+garlic,+pasta,+cauliflower");
-
-
-
 
 
     }
