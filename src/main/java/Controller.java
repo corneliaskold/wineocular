@@ -4,7 +4,7 @@ public class Controller {
 
     public Controller(){
         recipeBook = new RecipeBook(this);
-        RecipeGetter rg = new RecipeGetter("scallions,+garlic,+pasta,+cauliflower");
+        //RecipeGetter rg = new RecipeGetter("scallions,+garlic,+pasta,+cauliflower");
     }
 
     public RecipeBook getRecipeBook() {
