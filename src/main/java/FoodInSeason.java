@@ -1,4 +1,3 @@
-import com.google.gson.JsonObject;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -28,20 +27,10 @@ public class FoodInSeason {
                     .queryString("format", "json")
                     .asJson();
 
-
             JsonNode body = response.getBody();
-            System.out.println("Som jsonnode: " + body);
-
             JSONObject bodyObject = body.getObject();
-            System.out.println("som JSONobject: " + bodyObject);
-
             JSONObject query = bodyObject.getJSONObject("query");
-            System.out.println("'query': " + query);
-
             JSONObject results = query.getJSONObject("results");
-            System.out.println("'results': " + results.keys().toString());
-
-
             JSONObject jsonObject = results;
             Iterator<String> keys = jsonObject.keys();
 
@@ -62,14 +51,13 @@ public class FoodInSeason {
         } catch (UnirestException e) {
             e.printStackTrace();
         }
-
     }
 
     public ArrayList<String> getIngredientsInSeason() {
         return ingredientsInSeason;
     }
 
-
+    //Main-metod för att testa hätmning från säsongsmat
     public static void main(String[] args) {
         FoodInSeason prog = new FoodInSeason();
         prog.getFoodsInSeason();
@@ -78,6 +66,5 @@ public class FoodInSeason {
             System.out.println(ingredient);
         }
     }
-
-
+    
 }
