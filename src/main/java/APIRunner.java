@@ -45,6 +45,21 @@ public class APIRunner {
             }
             return "";
         });
+
+
+        //returnerar ett json-objekt innehållande en array med flera recept baserade på inggredienser i säsong
+        get("/:recipes", (request, response) -> {
+            Recipe[] recipes = controller.getRecipeArray();
+
+            if (preferredResponseType(request).equals("application/json")) {
+                response.type("application/json");
+                response.body(gson.toJson(recipes, RecipeBook.class));
+            }
+            assert response != null;
+            System.out.println(response.body());
+            return response.body();
+        });
+
     }
 
     private static String preferredResponseType(Request request) {
@@ -69,6 +84,4 @@ public class APIRunner {
 // get - för att hämta receptboken så att html-koden kan hämta den.
 
 // receptboken kommer skapas som ett json-objekt till hemsidan,
-//
-
 //
