@@ -14,6 +14,9 @@ public class RecipeBook {
         recipeArray = new Recipe[index+1];
     }
 
+    public RecipeBook() {
+    }
+
     public void addRecipe(int id, Recipe recipe){
         recipeBook.put(id, recipe);
         recipeArray[index] = recipe;
