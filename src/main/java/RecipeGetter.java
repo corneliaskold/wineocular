@@ -14,12 +14,9 @@ public class RecipeGetter {
 
     public RecipeBook getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
-        RecipeBook searchResults = new RecipeBook();
-
         StringBuilder ingredients = new StringBuilder();
         for(int i = 0; i<seasonIngredients.size(); i++) {
             ingredients.append(seasonIngredients.get(i) + ",");
-
         }
         ingredients.deleteCharAt(seasonIngredients.lastIndexOf(","));
 
@@ -29,14 +26,39 @@ public class RecipeGetter {
             return null; //TODO proper error handling
         }
 
-        HttpResponse response;
+        HttpResponse<JsonNode> response;
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         //TODO start fetching recipes based on the different dishes in JSONArray
         for(int i = 0; i<dishes.length(); i++) {
+            try {
+                response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
+                        .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                        .queryString("query", dishes.get(i))
+                        .queryString("includeIngredients", ingredients)
+                        .queryString("number", 3)
+                        .asJson();
 
+                JsonNode json = response.getBody();
+                JSONObject jsonObject = json.getObject();
+                JSONArray array = jsonObject.getJSONArray("results");
+                for(int j = 0; j<array.length(); j++) {
+                    JSONObject recipe = array.getJSONObject(j);
+                    int id = recipe.getInt("id");
+                    String imageURL = recipe.getString("image");
+                    String title = recipe.getString("title");
+
+                    Recipe newRecipe = new Recipe(title, imageURL, id);
+                    recipes.add(newRecipe);
+                }
+
+            } catch(UnirestException e) {
+
+            }
 
         }
 
 
+        return
     }
 
     private JSONArray getByWine(String wineSelection) {

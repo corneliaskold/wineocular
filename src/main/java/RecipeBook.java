@@ -7,8 +7,8 @@ public class RecipeBook {
     private int index;
 
     //HashMap som samlar recept, key=id
-    public RecipeBook(){
-
+    public RecipeBook(Controller controller){
+        this.controller = controller;
         recipeBook = new HashMap<>();
         index = 0;
         recipeArray = new Recipe[index+1];
