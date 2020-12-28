@@ -15,6 +15,10 @@ public class Recipe {
 
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String toString() {
         String description = title + " " + id;
         return description;

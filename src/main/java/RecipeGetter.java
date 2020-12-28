@@ -12,17 +12,28 @@ public class RecipeGetter {
 
     }
 
+    /**
+     * Hämtar recept baserat på både vindruvan som är vald och säsongsingredienserna från Spoonacular.
+     * @param wineSelection valda druvan
+     * @param seasonIngredients lista av ingredienser som är i säsong
+     * @return ett RecipeBook-objekt som innehåller alla sökresultat
+     */
     public RecipeBook getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
         StringBuilder ingredients = new StringBuilder();
         for(int i = 0; i<seasonIngredients.size(); i++) {
-            ingredients.append(seasonIngredients.get(i) + ",");
+            ingredients.append(seasonIngredients.get(i) + ",+");
         }
-        ingredients.deleteCharAt(seasonIngredients.lastIndexOf(","));
+        ingredients.deleteCharAt(ingredients.lastIndexOf(","));
+        ingredients.deleteCharAt(ingredients.lastIndexOf("+"));
+
+        System.out.println(ingredients);
 
         JSONArray dishes = getByWine(wineSelection);
 
+
         if(dishes == null) {
+            System.out.println("nothing");
             return null; //TODO proper error handling
         }
 
@@ -31,6 +42,7 @@ public class RecipeGetter {
         //TODO start fetching recipes based on the different dishes in JSONArray
         for(int i = 0; i<dishes.length(); i++) {
             try {
+                System.out.println(i);
                 response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
                         .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
                         .queryString("query", dishes.get(i))
@@ -38,6 +50,7 @@ public class RecipeGetter {
                         .queryString("number", 3)
                         .asJson();
 
+                System.out.println(response.getBody());
                 JsonNode json = response.getBody();
                 JSONObject jsonObject = json.getObject();
                 JSONArray array = jsonObject.getJSONArray("results");
@@ -58,8 +71,22 @@ public class RecipeGetter {
         }
 
 
-        return
+        RecipeBook recipeBook = new RecipeBook();
+
+        for(int i = 0; i<recipes.size(); i++) {
+            recipeBook.addRecipe(recipes.get(i).getId(), recipes.get(i));
+        }
+
+
+        return recipeBook;
     }
+
+    /**
+     * Hämtar alla mat-typer baserat på vindruvan som angivits, genom en request till Spoonacular-API:t.
+     * Kallas enbart på av getByWineAndSeason-metoden.
+     * @param wineSelection valda vindruvan
+     * @return JSONArray av mat-typer
+     */
 
     private JSONArray getByWine(String wineSelection) {
 
@@ -85,7 +112,7 @@ public class RecipeGetter {
 
 
 
-    public void getRecipes(String ingredients) {
+    /*public void getRecipes(String ingredients) {
 
         HttpResponse<JsonNode> response;
 
@@ -162,4 +189,15 @@ public class RecipeGetter {
             System.out.println(recipe.getString("sourceUrl"));
         }
     }
+
+    public static void main(String[] args) {
+
+        ArrayList<String> ingredients = new ArrayList<String>();
+        ingredients.add("tomato");
+        //ingredients.add("cheese");
+        //ingredients.add("beef");
+
+        RecipeGetter rg = new RecipeGetter();
+        rg.getByWineAndSeason("malbec", ingredients);
+    }*/
 }
