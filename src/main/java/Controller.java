@@ -1,6 +1,4 @@
 import com.google.gson.Gson;
-
-import javax.sound.midi.Receiver;
 import java.util.ArrayList;
 
 public class Controller {
