@@ -11,6 +11,19 @@ public class Recipe {
         this.id = id;
     }
 
+    public Recipe(String title, String imageURL, int id, String description, String[] ingredients) {
+        this.title = title;
+        this.imageURL = imageURL;
+        this.id = id;
+        this.description = description;
+        this.ingredients = ingredients;
+
+    }
+
+    public Recipe(String title) {
+        this.title = title;
+    }
+
     public Recipe() {
 
     }

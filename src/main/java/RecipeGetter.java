@@ -18,7 +18,7 @@ public class RecipeGetter {
      * @param seasonIngredients lista av ingredienser som är i säsong
      * @return ett RecipeBook-objekt som innehåller alla sökresultat
      */
-    public RecipeBook getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
+    public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
         StringBuilder ingredients = new StringBuilder();
         for(int i = 0; i<seasonIngredients.size(); i++) {
@@ -47,6 +47,7 @@ public class RecipeGetter {
                         .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
                         .queryString("query", dishes.get(i))
                         .queryString("includeIngredients", ingredients)
+                        .queryString("instructionsRequired", true)
                         .queryString("number", 3)
                         .asJson();
 
@@ -70,15 +71,48 @@ public class RecipeGetter {
 
         }
 
+        return recipes;
+    }
 
-        RecipeBook recipeBook = new RecipeBook();
+    public Recipe getById(int id) {
+        //Om något går fel så returneras ett recipe-objekt med titeln "No recipe found"
+        Recipe recipeResult = new Recipe("No recipe found");
+        HttpResponse<JsonNode> response;
+        String[] ingredients;
+        String title;
+        String description;
+        String imageURL;
 
-        for(int i = 0; i<recipes.size(); i++) {
-            recipeBook.addRecipe(recipes.get(i).getId(), recipes.get(i));
+        try {
+
+            response = Unirest.get("https://api.spoonacular.com/recipes/{id}/information")
+                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                    .queryString("id", id)
+                    .asJson();
+
+            JsonNode json = response.getBody();
+            JSONObject jsonObject = json.getObject();
+
+            //Hämta alla ingredienser och lägga dem i en String-array
+            JSONArray ingredientResults = jsonObject.getJSONArray("extendedIngredients");
+            ingredients = new String[ingredientResults.length()];
+
+            for(int i = 0; i<ingredientResults.length(); i++) {
+                JSONObject ingredientName = ingredientResults.getJSONObject(i);
+                ingredients[i] = ingredientName.getString("name");
+            }
+
+            title = jsonObject.getString("title");
+            description = jsonObject.getString("summary");
+            imageURL = jsonObject.getString("image");
+
+            recipeResult = new Recipe(title, imageURL, id, description, ingredients);
+
+        } catch (UnirestException e) {
+
         }
-
-
-        return recipeBook;
+                
+        return recipeResult;
     }
 
     /**
