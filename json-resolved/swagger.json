@@ -1,0 +1,63 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "The ultimate recipe finder for your wine",
+    "description" : "Choose a grape and get seasonal recipies matching it",
+    "version" : "1.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/WineOcular/WineOcular/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "paths" : {
+    "/id" : {
+      "get" : {
+        "summary" : "Get recipe by id",
+        "operationId" : "getRecipeById",
+        "responses" : {
+          "200" : {
+            "description" : "OK",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Recipe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Recipe" : {
+        "required" : [ "description", "id", "imageURL", "ingredients", "title" ],
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer",
+            "example" : 716429
+          },
+          "title" : {
+            "type" : "string",
+            "example" : "Pasta with Garlic, Scallions, Cauliflower & Breadcrumbs"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "Steps?"
+          },
+          "imageURL" : {
+            "type" : "string",
+            "format" : "url",
+            "example" : "https://spoonacular.com/recipeImages/716429-556x370.jpg"
+          },
+          "ingredients" : {
+            "type" : "string",
+            "example" : "Ingredients?"
+          }
+        }
+      }
+    }
+  }
+}
