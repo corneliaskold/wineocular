@@ -2,6 +2,8 @@ import com.google.gson.Gson;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.pebble.PebbleTemplateEngine;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,7 +27,7 @@ public class APIRunner {
 
         //returnerar ett recept med id
         get("/:id", (request, response) -> {
-            Recipe recipe = controller.getRecipe(Integer.parseInt(request.params("id")));
+            Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
@@ -47,13 +49,13 @@ public class APIRunner {
         });
 
 
-        //returnerar ett json-objekt innehållande en array med flera recept baserade på inggredienser i säsong
+        //returnerar ett json-objekt innehållande en array med flera recept baserade på ingredienser i säsong
         get("/:recipes", (request, response) -> {
-            Recipe[] recipes = controller.getRecipeArray();
+            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
 
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
-                response.body(gson.toJson(recipes, RecipeBook.class));
+                response.body(gson.toJson(recipes, Recipe.class));
             }
             assert response != null;
             System.out.println(response.body());
