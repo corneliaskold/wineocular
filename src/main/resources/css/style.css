@@ -191,6 +191,7 @@ footer {
     display: flex;
     flex-direction: column;
     max-width: 45ch;
+    padding-left: 20px;
 }
 
 .ft-main-left .logo {
