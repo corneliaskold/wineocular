@@ -4,13 +4,18 @@ body {
     flex-direction: column;
 }
 
+.wrapper {
+    width: 1280px;
+    margin: 0 auto;
+}
+
 /* --- START - Header--- */
 .site-header {
     position: fixed;
     background-color: #ffffff;
     border-bottom: 1px solid #000000;
-    left: 0px;
-    right: 0px;
+    left: 0;
+    right: 0;
 }
 
 .site-header__wrapper nav {
@@ -23,7 +28,7 @@ body {
 .site-header__wrapper nav a {
     color: #000000;
     text-decoration: none;  /* Tar bort understruket från länk */
-    padding: 0px 15px; /* Mellanrum mellan länkar */ 
+    padding: 0 15px; /* Mellanrum mellan länkar */
 }
 
 .nav a {
@@ -112,44 +117,73 @@ body {
 
 /* --- END - Seasonal --- */
 
-/* --- START - Red Grapes --- */
+/* --- START - Grapes --- */
 
-.red_grapes {
+.grapes {
     justify-content: center;
     align-items: center;
 
     background-color: #D0D0D0;
-    background-position: center;
-
-    height: 675px;
 }
 
-.red_grapes h1 {
-    font-size: 60px;
+.grapes h1 {
+    font-size: 40px;
+    font-family: 'Pacifico', sans-serif;
     text-align: center;
+    font-weight: normal;
+    padding-top: 20px;
 }
 
 .grid-container {
     display: grid;
-    grid-template-columns: auto auto auto;
-    padding: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+    padding-bottom: 30px;
   }
 
-  .grid-item {
+.grid-item {
     padding: 20px;
-    font-size: 30px;
-    text-align: center;
+    font-size: 18px;
+    display: flex;
+    
   }
+
+.grape-icon {
+    padding: 20px 10px 0 0;
+}
+
+.button-nav {
+    text-align: center;
+}
+
+a.button{
+    display:inline-block;
+    padding:0.3em 1.2em;
+    margin:0 0.3em 0.3em 0;
+    border-radius:2em;
+    box-sizing: border-box;
+    text-decoration:none;
+    color:#FFFFFF;
+    background-color:#4eb5f1;
+    text-align:center;
+    transition: all 0.2s;
+}
+
+a.button:hover{
+    background-color:#4095c6;
+}
 
 /* --- END - Red Grapes --- */
 
 /* --- START - Footer --- */
+footer {
+    background-color: #D0D0D0;
+}
 
 .ft-main {
     display: flex;
-    background-color: #D0D0D0;
     color: #3D3D3D;
-    padding: 40px 40px;
+    padding: 40px 0;
     justify-content: space-between;
 }
 
@@ -185,11 +219,11 @@ ul {
 }
 
 .ft-main-item {
-    padding: 0px 30px;
+    padding: 0 30px;
 }
 
 .ft-main-left .mau {
-    padding: 20px 0px;
+    padding: 20px 0;
 }
 
 .ft-legal {
