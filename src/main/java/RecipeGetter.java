@@ -82,12 +82,11 @@ public class RecipeGetter {
         String title;
         String description;
         String imageURL;
-
+        String requestURL = "https://api.spoonacular.com/recipes/" + id + "/information";
         try {
 
-            response = Unirest.get("https://api.spoonacular.com/recipes/{id}/information")
+            response = Unirest.get(requestURL)
                     .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
-                    .queryString("id", id)
                     .asJson();
 
             JsonNode json = response.getBody();
@@ -226,12 +225,9 @@ public class RecipeGetter {
 
     public static void main(String[] args) {
 
-        ArrayList<String> ingredients = new ArrayList<String>();
-        ingredients.add("tomato");
-        //ingredients.add("cheese");
-        //ingredients.add("beef");
-
         RecipeGetter rg = new RecipeGetter();
-        rg.getByWineAndSeason("malbec", ingredients);
+        Recipe recipe = rg.getById(716429);
+
+        System.out.println(recipe.toString());
     }*/
 }
