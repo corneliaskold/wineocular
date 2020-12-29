@@ -2,7 +2,7 @@
   "openapi" : "3.0.0",
   "info" : {
     "title" : "The ultimate recipe finder for your wine",
-    "description" : "Choose a grape and get seasonal recipies matching it",
+    "description" : "Choose a grape and get seasonal recipes matching it",
     "version" : "1.0.0"
   },
   "servers" : [ {
