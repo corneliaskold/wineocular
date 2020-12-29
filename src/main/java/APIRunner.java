@@ -3,13 +3,13 @@ import spark.ModelAndView;
 import spark.Request;
 import spark.template.pebble.PebbleTemplateEngine;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static spark.Spark.*;
+
 public class APIRunner {
-    public APIRunner(){
+
+    public APIRunner() {
     }
 
     public static void main(String[] args) {
@@ -26,6 +26,8 @@ public class APIRunner {
         });
 
         //returnerar ett recept med id
+
+
         get("/:id", (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
@@ -66,7 +68,7 @@ public class APIRunner {
 
     private static String preferredResponseType(Request request) {
         List<String> types = Arrays.asList(request.headers("Accept").split("\\s*,\\s*"));
-        for (String type: types) {
+        for (String type : types) {
             switch (type) {
                 case "application/json":
                 case "application/xml":
