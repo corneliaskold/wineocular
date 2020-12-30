@@ -1,10 +1,24 @@
 {% extends "templates/layout/base.html" %}
 
-{% block title %}Front page title{% endblock %}
+{% block title %}{{ title }}{% endblock %}
 
 {% block content %}
 
 <!-- Valt recept visas -->
 <!-- Lista på hittade recept visas -->
+
+
+
+<p>{{ title }}</p>
+
+<p>{{ ingredients }} </p>
+
+<p>{{ description }} </p>
+
+<p>{{ id }} </p>
+
+<p> <img src="{{ imageURL }}">Bild</img></p>
+
+<p><a href ="{{ imageURL }}">Länk till bild: {{ imageURL }}</a> </p>
 
 {% endblock %}
