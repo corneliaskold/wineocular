@@ -1,5 +1,4 @@
 import com.google.gson.Gson;
-import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.pebble.PebbleTemplateEngine;
@@ -17,6 +16,7 @@ public class APIRunner {
         port(2020);
         staticFileLocation("/");
 
+
         Gson gson = new Gson();
         Controller controller = new Controller();
 
@@ -26,9 +26,49 @@ public class APIRunner {
                     new ModelAndView(null, "templates/frontpage.html"));
         });
 
+        get("/:recipes", (request, response) -> {
+            //Denna arraylist ger internal error 500, den hämtar inget just nu utan blir null.
+            //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
+
+            ArrayList<Recipe> recipes = new ArrayList<>();
+
+            //Testrecept för att kunna visa något i webbläsaren.
+            for (int i = 0; i < 5; i++) {
+                Recipe recipe = new Recipe();
+                recipe.id = 715538 + i;
+                recipe.title = "Testrecept" + i;
+                recipe.imageURL = "url-för bild";
+                recipes.add(recipe);
+            }
+
+            // Plockar ut info som ska presenteras för varje recept
+            ArrayList<Map> recipeList = new ArrayList<Map>();
+            for (Recipe r : recipes) {
+                HashMap map = new HashMap();
+                map.put("title", r.title);
+                map.put("imageURL", r.imageURL);
+                map.put("details", "http://localhost:2020/" + r.id);
+                recipeList.add(map);
+            }
+
+            Map model = new HashMap();
+            model.put("recipes", recipeList);
+
+
+            if (preferredResponseType(request).equals("application/json")) {
+                response.type("application/json");
+                response.body(gson.toJson(recipeList));
+            } else {
+                response.body(new PebbleTemplateEngine().render(
+                        new ModelAndView(model, "templates/results.html"))
+                );
+            }
+            assert response != null;
+            return response.body();
+
+        });
+
         //returnerar ett recept med id
-
-
         get("/:id", (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
@@ -38,7 +78,6 @@ public class APIRunner {
             recipeMap.put("description", recipe.description);
             recipeMap.put("id", recipe.id);
             recipeMap.put("imageURL", recipe.imageURL);
-
 
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
@@ -50,52 +89,22 @@ public class APIRunner {
                         )
                 );
             }
+
             assert response != null;
             //System.out.println(response.body());
             return response.body();
         });
 
-        post("/", (req, res) -> {
-            try {
-                Recipe recipe = gson.fromJson(req.body(), Recipe.class);
-                controller.addRecipe(recipe);
-            } catch (Exception e) {
-                System.out.println(e);
-            }
-            return "";
-        });
 
-
-        //returnerar ett json-objekt innehållande en array med flera recept baserade på ingredienser i säsong
-        get("/:recipes", (request, response) -> {
-            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
-            ArrayList<Map> recipeList = new ArrayList<Map>();
-
-            for (Recipe r : recipes) {
-                HashMap map = new HashMap();
-                map.put("title", r.title);
-                map.put("imageURL", r.imageURL);
-                map.put("details", "http://localhost:2020/" + r.id);
-                recipeList.add(map);
-            }
-
-
-            if (preferredResponseType(request).equals("application/json")) {
-                response.type("application/json");
-                response.body(gson.toJson(recipes, Recipe.class));
-            } else {
-
-                Map model = new HashMap();
-                model.put("recipes", recipeList);
-                response.body(new PebbleTemplateEngine().render(
-                        new ModelAndView(model, "templates/results.html"))
-                );
-            }
-
-            assert response != null;
-            System.out.println(response.body());
-            return response.body();
-        });
+//        post("/", (req, res) -> {
+//            try {
+//                Recipe recipe = gson.fromJson(req.body(), Recipe.class);
+//                controller.addRecipe(recipe);
+//            } catch (Exception e) {
+//                System.out.println(e);
+//            }
+//            return "";
+//        });
 
     }
 
@@ -114,11 +123,3 @@ public class APIRunner {
     }
 }
 
-
-// Att göra - få upp alla recept i receptboken som matchar det vin vi sökt på
-// skicka en get till en lista på recept  - för att presentera resultatet
-// Cornelia skriver en receptbok - api behöver metod att hämta receptboken
-// get - för att hämta receptboken så att html-koden kan hämta den.
-
-// receptboken kommer skapas som ett json-objekt till hemsidan,
-//

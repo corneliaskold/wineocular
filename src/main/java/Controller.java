@@ -20,6 +20,7 @@ public class Controller {
     }
 
     public ArrayList<Recipe> getRecipeArray(String wine) {
+        System.out.println(recipeGetter.getByWineAndSeason(wine, getFoodInSeason()));
         return recipeGetter.getByWineAndSeason(wine, getFoodInSeason());
     }
 
@@ -54,6 +55,10 @@ public class Controller {
             resultList.add(gson.toJson(recipeResult, RecipeResult.class));
         }
         return resultList;
+    }
+
+    public static void main(String[] args) {
+        new Controller().getRecipeArray("merlot");
     }
 
 }
