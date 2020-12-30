@@ -9,12 +9,19 @@
 <!-- Eventuellt några favoritrecept visas -->
 <!-- for recipe in recipes : visa titel och bild  -->
 
-<p>{{ recipe.title }}</p>
+<!--<p>{{ recipe.title }}</p>-->
 
-<p>
-    <img src="{{ recipe.imageURL }}">Bild</img>
-</p>
+<!--<p>-->
+<!--    <img src="{{ recipe.imageURL }}">Bild</img>-->
+<!--</p>-->
 
 <!-- end loop -->
+
+{% for recipe in recipes %}
+<p>{{ recipe.title }}</p>
+<img src="{{ recipe.imageURL }}">Bild</img>
+<a href ="{{ details }}">Länk till receptet</a>
+
+{% endfor %}
 
 {% endblock %}
