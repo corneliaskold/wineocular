@@ -203,7 +203,23 @@ a.button:hover{
     background-color:#4095c6;
 }
 
-/* --- END - Red Grapes --- */
+/* --- END - Grapes --- */
+
+/* --- START - Recipe --- */
+
+.recipe {
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+
+    background-color: #FFFFFF;
+
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
+}
+
+/* --- END - Recipe --- */
 
 /* --- START - Footer --- */
 footer {
