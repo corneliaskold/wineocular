@@ -1,7 +1,8 @@
 body {
     display: flex;
-    font-family: 'Helvetica', Arial, Helvetica, sans-serif;
+    font-family: 'Roboto', sans-serif;
     flex-direction: column;
+    background-color: #e6e7e8;
 }
 
 .wrapper {
@@ -54,14 +55,35 @@ body {
 /* --- START - Hero --- */
 .hero {
     display: flex;
+    justify-content: center;
+    align-items: center;
     
-    height: 700px;
+    height: 640px;
 
     padding-top: 100px;
     padding-bottom: 20px;
 
     background-color: #8BCBFA; /* Blå  #8BCBFA */
+    background-image: url(../images/winesearcher.png), url(../images/winter.png) ;
+    background-repeat: no-repeat;
+    background-position: 0% 75%; 
+
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
+
 }
+
+.hero article {
+    text-align: center;
+    width: 40%;
+    padding-bottom: 65px;
+}
+
+.hero article h1 {
+    font-size: 40px;
+}
+
 /* --- END - Hero --- */
 
 /* --- START - Choose Wine --- */
@@ -92,17 +114,20 @@ body {
     justify-content: center;
     align-items: center;
 
-    background-image: url(../images/food-banner.png);
+    background-image: url(../images/seasonal_food_banner.png);
     background-color: #D0D0D0;
     background-position: center;
 
-    height: 675px;
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+
+    height: 440px;
 }
 
 .seasonal article {
     color: #FFFFFF;
     text-align: center;
-    width: 50%;
+    width: 60%;
     padding: 20px;
 
 }
@@ -123,14 +148,19 @@ body {
     justify-content: center;
     align-items: center;
 
-    background-color: #D0D0D0;
+    background-color: #FFFFFF;
+
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
 }
 
 .grapes h1 {
-    font-size: 40px;
     font-family: 'Pacifico', sans-serif;
-    text-align: center;
+    font-size: 40px;
     font-weight: normal;
+
+    text-align: center;
     padding-top: 20px;
 }
 
@@ -138,14 +168,14 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 10px;
+
     padding-bottom: 30px;
   }
 
 .grid-item {
-    padding: 20px;
-    font-size: 18px;
     display: flex;
-    
+    font-size: 18px;
+    padding: 20px;
   }
 
 .grape-icon {
@@ -178,6 +208,7 @@ a.button:hover{
 /* --- START - Footer --- */
 footer {
     background-color: #D0D0D0;
+    border-top: 1px solid #000000;
 }
 
 .ft-main {
@@ -229,7 +260,7 @@ ul {
 
 .ft-legal {
     display: flex;
-    background: #EBEBEB;
+    background: #adadad;
     height: 39px;
     align-items: center;
     justify-content: center;
