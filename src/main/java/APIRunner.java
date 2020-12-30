@@ -1,4 +1,5 @@
 import com.google.gson.Gson;
+import com.mitchellbosecke.pebble.template.PebbleTemplate;
 import spark.ModelAndView;
 import spark.Request;
 import spark.template.pebble.PebbleTemplateEngine;
@@ -31,12 +32,26 @@ public class APIRunner {
         get("/:id", (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
+            HashMap recipeMap = new HashMap();
+            recipeMap.put("title", recipe.title);
+            recipeMap.put("ingredients", recipe.ingredients);
+            recipeMap.put("description", recipe.description);
+            recipeMap.put("id", recipe.id);
+            recipeMap.put("imageURL", recipe.imageURL);
+
+
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
                 response.body(gson.toJson(recipe, Recipe.class));
+            } else {
+                response.body(
+                        new PebbleTemplateEngine().render(
+                                new ModelAndView(recipeMap, "templates/recipe.html")
+                        )
+                );
             }
             assert response != null;
-            System.out.println(response.body());
+            //System.out.println(response.body());
             return response.body();
         });
 
@@ -54,11 +69,29 @@ public class APIRunner {
         //returnerar ett json-objekt innehållande en array med flera recept baserade på ingredienser i säsong
         get("/:recipes", (request, response) -> {
             ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
+            ArrayList<Map> recipeList = new ArrayList<Map>();
+
+            for (Recipe r : recipes) {
+                HashMap map = new HashMap();
+                map.put("title", r.title);
+                map.put("imageURL", r.imageURL);
+                map.put("details", "http://localhost:2020/" + r.id);
+                recipeList.add(map);
+            }
+
 
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
                 response.body(gson.toJson(recipes, Recipe.class));
+            } else {
+
+                Map model = new HashMap();
+                model.put("recipes", recipeList);
+                response.body(new PebbleTemplateEngine().render(
+                        new ModelAndView(model, "templates/results.html"))
+                );
             }
+
             assert response != null;
             System.out.println(response.body());
             return response.body();
