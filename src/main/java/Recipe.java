@@ -32,6 +32,9 @@ public class Recipe {
         return id;
     }
 
+    public String getTitle() {
+        return title;
+    }
     public String toString() {
         String description = title + " " + id;
         return description;
