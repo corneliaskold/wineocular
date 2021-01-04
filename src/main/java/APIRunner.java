@@ -33,9 +33,9 @@ public class APIRunner {
             //Testrecept för att kunna visa något i webbläsaren.
             for (int i = 0; i < 5; i++) {
                 Recipe recipe = new Recipe();
-                recipe.id = 715538 + i;
+                recipe.id = 715537 + i;
                 recipe.title = "Testrecept" + i;
-                recipe.imageURL = "url-för bild";
+                recipe.imageURL = "https://spoonacular.com/recipeImages/" + recipe.id + "-312x231.jpg";
                 recipes.add(recipe);
             }
 
@@ -45,7 +45,7 @@ public class APIRunner {
                 HashMap map = new HashMap();
                 map.put("title", r.title);
                 map.put("imageURL", r.imageURL);
-                map.put("details", "http://localhost:2020/" + r.id);
+                map.put("details", "http://localhost:2020/recipe/" + r.id);
                 recipeList.add(map);
             }
 

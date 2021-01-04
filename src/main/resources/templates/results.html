@@ -4,44 +4,8 @@
 
 {% block content %}
 
-<!--     <!-- Grids för att visa resultat i-->
-    {% include "templates/partials/resultgrid.html" %}
- -->
 <!-- Resultaten visas -->
-<section class="wrapper result">
-
-    <div class="grid-container">
-
-        <div class="grid-item">
-
-            <div class="grape-icon">
-                <img src="../images/redgrape.png" width="40">
-            </div>
-
-            <div class="grape-info">
-                <h2>{{ recipe.title }}</h2>
-                <p><a href="{{ details }}">Länk till receptet</a></p>
-            </div>
-
-        </div>
-
-    </div>
-
-
-
-    <ul>
-        {% for recipe in recipes %}
-
-        <li>
-            <p>{{ recipe.title }}</p>
-            <p><img src="{{ recipe.imageURL }}">Bild</img></p>
-            <p><a href="{{ details }}">Länk till receptet</a></p>
-        </li>
-
-        {% endfor %}
-
-    </ul>
-</section>
-
+<!-- Grids för att visa resultat i-->
+    {% include "templates/partials/resultgrid.html" %}
 
 {% endblock %}
