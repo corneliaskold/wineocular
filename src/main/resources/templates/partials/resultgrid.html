@@ -5,32 +5,24 @@
 
     <div class="grid-container">
 
+        {% for recipe in recipes %}
         <div class="result-item">
 
             <div class="polaroid">
                 <div class="result-image">
-                    <img src="https://dummyimage.com/340x240/c2c2c2/fff.png">
+                    <img src="{{ recipe.imageURL }}">
                 </div>
 
                 <div class="result-title">
-                    <h3>Recipe name</h3>
-                    <p>Lorem ipsum...</p>
+                    <h3>{{ recipe.title }}</h3>
+                    <p><a href="{{ recipe.details }}">Länk till receptet</a></p>
                 </div>
             </div>
 
         </div>
-
-        <!-- OSV... :) -->
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
-        <div class="result-item"></div>
+        {% endfor %}
 
     </div>
     </div>
-    
+
 </section>
