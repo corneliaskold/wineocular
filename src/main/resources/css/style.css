@@ -142,6 +142,18 @@ body {
 
 /* --- END - Seasonal --- */
 
+/* --- START - Grapes / Results GRID --- */
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 10px;
+
+    padding-bottom: 30px;
+  }
+
+/* --- END - Grape / Result GRID --- */
+
 /* --- START - Grapes --- */
 
 .grapes {
@@ -164,15 +176,7 @@ body {
     padding-top: 20px;
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: 10px;
-
-    padding-bottom: 30px;
-  }
-
-.grid-item {
+.grape-item {
     display: flex;
     font-size: 18px;
     padding: 20px;
@@ -203,7 +207,73 @@ a.button:hover{
     background-color:#4095c6;
 }
 
-/* --- END - Red Grapes --- */
+/* --- END - Grapes --- */
+
+/* --- START - Results --- */
+
+.results {
+    justify-content: center;
+    align-items: center;
+
+    background-color: #FFFFFF;
+    background-image: url(../images/winter.png);
+
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
+}
+
+.results h1 {
+    padding-top: 100px;
+
+    font-family: 'Pacifico', sans-serif;
+    font-size: 40px;
+    font-weight: normal;
+
+    text-align: center;
+}
+
+.result-item {
+    /* Bakgrundsfärg för att visa Grid ta bort sen*/
+    background-color:rgba(0, 149, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+
+    font-size: 18px;
+    padding: 20px;
+
+    text-align: center;
+  }
+
+.polaroid {
+    background-color:white;
+    border: 1px solid;
+    padding-top: 20px;
+    box-shadow: 5px 5px rgb(192, 192, 192);
+}
+
+.result-title {
+    text-align: left;
+    padding-left: 20px;
+    line-height: 0;
+}
+/* --- END - Results --- */
+
+/* --- START - Recipe --- */
+
+.recipe {
+    justify-content: center;
+    align-items: center;
+    padding-top: 100px;
+
+    background-color: #FFFFFF;
+
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
+}
+
+/* --- END - Recipe --- */
 
 /* --- START - Footer --- */
 footer {
