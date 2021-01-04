@@ -16,7 +16,6 @@ public class APIRunner {
         port(2020);
         staticFileLocation("/");
 
-
         Gson gson = new Gson();
         Controller controller = new Controller();
 
@@ -26,8 +25,7 @@ public class APIRunner {
                     new ModelAndView(null, "templates/frontpage.html"));
         });
 
-        get("/:recipes", (request, response) -> {
-            //Denna arraylist ger internal error 500, den hämtar inget just nu utan blir null.
+        get("/search/:recipes", (request, response) -> {
             //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
 
             ArrayList<Recipe> recipes = new ArrayList<>();
@@ -51,14 +49,14 @@ public class APIRunner {
                 recipeList.add(map);
             }
 
-            Map model = new HashMap();
-            model.put("recipes", recipeList);
-
-
             if (preferredResponseType(request).equals("application/json")) {
                 response.type("application/json");
                 response.body(gson.toJson(recipeList));
             } else {
+
+                Map model = new HashMap();
+                model.put("recipes", recipeList);
+
                 response.body(new PebbleTemplateEngine().render(
                         new ModelAndView(model, "templates/results.html"))
                 );
@@ -69,7 +67,7 @@ public class APIRunner {
         });
 
         //returnerar ett recept med id
-        get("/:id", (request, response) -> {
+        get("/recipe/:id", (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
             HashMap recipeMap = new HashMap();
