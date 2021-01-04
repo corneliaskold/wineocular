@@ -4,27 +4,44 @@
 
 {% block content %}
 
-    <!-- Grids för att visa resultat i-->
+<!--     <!-- Grids för att visa resultat i-->
     {% include "templates/partials/resultgrid.html" %}
-
+ -->
 <!-- Resultaten visas -->
-<!-- Eventuellt några favoritrecept visas -->
-<!-- for recipe in recipes : visa titel och bild  -->
+<section class="wrapper result">
 
-<!--<p>{{ recipe.title }}</p>-->
+    <div class="grid-container">
 
-<!--<p>-->
-<!--    <img src="{{ recipe.imageURL }}">Bild</img>-->
-<!--</p>-->
+        <div class="grid-item">
 
-<!-- end loop -->
+            <div class="grape-icon">
+                <img src="../images/redgrape.png" width="40">
+            </div>
 
-{% for recipe in recipes %}
-<p>{{ recipe.title }}</p>
-<img src="{{ recipe.imageURL }}">Bild</img>
-<a href ="{{ details }}">Länk till receptet</a>
+            <div class="grape-info">
+                <h2>{{ recipe.title }}</h2>
+                <p><a href="{{ details }}">Länk till receptet</a></p>
+            </div>
 
-{% endfor %}
+        </div>
+
+    </div>
+
+
+
+    <ul>
+        {% for recipe in recipes %}
+
+        <li>
+            <p>{{ recipe.title }}</p>
+            <p><img src="{{ recipe.imageURL }}">Bild</img></p>
+            <p><a href="{{ details }}">Länk till receptet</a></p>
+        </li>
+
+        {% endfor %}
+
+    </ul>
+</section>
 
 
 {% endblock %}
