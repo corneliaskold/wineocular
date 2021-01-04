@@ -4,6 +4,8 @@
 
 {% block content %}
 
+    <!-- Grids för att visa resultat i-->
+    {% include "templates/partials/resultgrid.html" %}
 
 <!-- Resultaten visas -->
 <!-- Eventuellt några favoritrecept visas -->
@@ -23,5 +25,6 @@
 <a href ="{{ details }}">Länk till receptet</a>
 
 {% endfor %}
+
 
 {% endblock %}
