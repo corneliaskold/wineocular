@@ -13,7 +13,7 @@ public class RecipeGetter {
 
     }
 
-    public ArrayList<Recipe> getByWineAndSeasonTwo(String wineSelection, ArrayList<String> seasonIngredients) {
+    public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
         StringBuilder ingredients = new StringBuilder();
         for(int i = 0; i<seasonIngredients.size(); i++) {
@@ -75,12 +75,12 @@ public class RecipeGetter {
         return recipeResults;
     }
 
-    /**
+    /*
      * Hämtar recept baserat på både vindruvan som är vald och säsongsingredienserna från Spoonacular.
      * @param wineSelection valda druvan
      * @param seasonIngredients lista av ingredienser som är i säsong
      * @return ett RecipeBook-objekt som innehåller alla sökresultat
-     */
+     *
     public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
         StringBuilder ingredients = new StringBuilder();
@@ -154,7 +154,7 @@ public class RecipeGetter {
             }
         }
         return recipesNoDupes;
-    }
+    }*/
 
     public Recipe getById(int id) {
         //Om något går fel så returneras ett recipe-objekt med titeln "No recipe found"
