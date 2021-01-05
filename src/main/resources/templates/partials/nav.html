@@ -1,4 +1,4 @@
- <header class="site-header">
+<header class="site-header">
 
     <div class="wrapper site-header__wrapper">
 
@@ -7,13 +7,30 @@
             <a href="/" class="logo">WineOcular</a>
 
             <div class="left-items">
-                <a href="#">ABOUT</a>
-                <a href="#">GRAPES</a> <!-- DROP DOWN: Red Grapes, White Grapes -->
-                <a href="#">SEASONAL</a> <!-- DROP DOWN: Change Season ? -->
+
+                <a href="#about">ABOUT</a>
+
+                <div class="dropdown">
+                    <button class="dropbtn">GRAPES</button>
+                    <div class="dropdown-content">
+                        <a href="#red">Red Grapes</a>
+                        <a href="#white">White Grapes</a>
+                    </div>
+                </div>
+
+                <div class="dropdown">
+                    <button class="dropbtn">SEASONAL</button>
+                    <div class="dropdown-content">
+                        <a href="#seasonal">Winter</a>
+                        <a href="#seasonal">Spring</a>
+                        <a href="#seasonal">Summer</a>
+                        <a href="#seasonal">Autumn</a>
+                    </div>
+                </div>
             </div>
 
             <div class="right-items">
-                <a href="#">CONTACT</a>
+                <a href="mailto:jool@snel.se?subject=WineOcular">CONTACT</a>
             </div>
 
         </nav>
