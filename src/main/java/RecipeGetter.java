@@ -4,84 +4,65 @@ import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class RecipeGetter {
 
+    private String currentApiKey = "cae37f32b37e4c3a9375f05f796efd79";
+
+    private String[] apiKeys = {
+            "beade7dbaeb243d4beb34dff964ccd2c",
+            "47849262aafc4f9e913a93b1c17550ee",
+            "4a3aec7e117042bc855d072c2b7e37b1",
+            "cae37f32b37e4c3a9375f05f796efd79"};
+
     public RecipeGetter() {
-
+        checkAPIkey();
     }
 
-    public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
-
-        StringBuilder ingredients = new StringBuilder();
-        for(int i = 0; i<seasonIngredients.size(); i++) {
-            ingredients.append(seasonIngredients.get(i) + ",+");
-        }
-        ingredients.deleteCharAt(ingredients.lastIndexOf(","));
-        ingredients.deleteCharAt(ingredients.lastIndexOf("+"));
-
-        JSONArray dishes = getByWine(wineSelection);
-
+    public void checkAPIkey() {
         HttpResponse<JsonNode> response;
-        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
 
-        try {
-            response = Unirest.get("https://api.spoonacular.com/recipes/findByIngredients")
-                    .queryString("ingredients", ingredients)
-                    .queryString("ignorePantry", false)
-                    .queryString("number", 100)
-                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
-                    .asJson();
+        double quota = 5000;
+        String newApiKey = currentApiKey;
 
-            JsonNode json = response.getBody();
-            JSONArray array = json.getArray();
+        for(int i = 0; i<apiKeys.length; i++) {
+            try {
+                response = Unirest.get("https://api.spoonacular.com/food/converse/suggest")
+                        .queryString("apiKey", apiKeys[i])
+                        .queryString("query", "tell")
+                        .queryString("number", 1)
+                        .asJson();
 
-            for(int i = 0; i<array.length(); i++) {
-                JSONObject jsonObject = array.getJSONObject(i);
-                String title = jsonObject.getString("title");
-                String imageURL = jsonObject.getString("image");
-                int id = jsonObject.getInt("id");
-
-                Recipe recipe = new Recipe(title, imageURL, id);
-
-                recipes.add(recipe);
-
-            }
-        } catch(UnirestException e) {
-
-        }
-
-        ArrayList<Recipe> recipeResults = new ArrayList<Recipe>();
-
-        for(int i = 0; i<recipes.size(); i++) {
-            boolean dishTrue = false;
-
-            for(int j = 0; j<dishes.length(); j++) {
-                String dish = dishes.getString(j);
-
-                if(recipes.get(i).getTitle().contains(dish) == true) {
-                    dishTrue = true;
+                Headers headers = response.getHeaders();
+                headers.get("X-API-Quota-Used");
+                List quotaList = headers.get("X-API-Quota-Used");
+                String quotaString = (String)quotaList.get(0);
+                double temp = Double.parseDouble(quotaString);
+                if(temp < quota) {
+                    quota = temp;
+                    newApiKey = apiKeys[i];
                 }
-            }
+            } catch(UnirestException e) {
 
-
-            if(dishTrue == true) {
-                recipeResults.add(recipes.get(i));
             }
         }
 
-        return recipeResults;
+        currentApiKey = newApiKey;
     }
 
-    /*
+    /**
      * Hämtar recept baserat på både vindruvan som är vald och säsongsingredienserna från Spoonacular.
      * @param wineSelection valda druvan
      * @param seasonIngredients lista av ingredienser som är i säsong
      * @return ett RecipeBook-objekt som innehåller alla sökresultat
-     *
+     */
     public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
+
+        checkAPIkey();
 
         StringBuilder ingredients = new StringBuilder();
         for(int i = 0; i<seasonIngredients.size(); i++) {
@@ -109,7 +90,7 @@ public class RecipeGetter {
                 try {
                     System.out.println(i);
                     response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
-                            .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                            .queryString("apiKey", currentApiKey)
                             .queryString("query", dishes.get(i))
                             .queryString("includeIngredients", seasonIngredients.get(rand.nextInt(seasonIngredients.size())))
                             .queryString("instructionsRequired", true)
@@ -154,15 +135,16 @@ public class RecipeGetter {
             }
         }
         return recipesNoDupes;
-    }*/
+    }
 
     public Recipe getById(int id) {
+        checkAPIkey();
         //Om något går fel så returneras ett recipe-objekt med titeln "No recipe found"
         Recipe recipeResult = new Recipe("No recipe found");
         HttpResponse<JsonNode> response;
         String[] ingredients;
         String title;
-        String description;
+        StringBuilder description;
         String imageURL;
         String requestURL = "https://api.spoonacular.com/recipes/" + id + "/information";
         try {
@@ -184,10 +166,20 @@ public class RecipeGetter {
             }
 
             title = jsonObject.getString("title");
-            description = jsonObject.getString("summary");
+
+            description = new StringBuilder(jsonObject.getString("summary"));
+
+            //Loops through the description and removes HTML-tags
+            int x = 0;
+            while(x == 0) {
+                description.replace(description.lastIndexOf("<"), description.lastIndexOf(">")+1, "");
+                if(description.lastIndexOf(">") == -1) {
+                    x = -1;
+                }
+            }
             imageURL = jsonObject.getString("image");
 
-            recipeResult = new Recipe(title, imageURL, id, description, ingredients);
+            recipeResult = new Recipe(title, imageURL, id, description.toString(), ingredients);
 
         } catch (UnirestException e) {
 
@@ -205,6 +197,7 @@ public class RecipeGetter {
 
     private JSONArray getByWine(String wineSelection) {
 
+        checkAPIkey();
         HttpResponse<JsonNode> wineResponse;
 
         try {
@@ -212,6 +205,7 @@ public class RecipeGetter {
                     .queryString("wine", wineSelection)
                     .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
                     .asJson();
+
 
 
             JsonNode json = wineResponse.getBody();
