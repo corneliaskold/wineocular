@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class RecipeGetter {
 
@@ -12,12 +13,74 @@ public class RecipeGetter {
 
     }
 
-    /**
+    public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
+
+        StringBuilder ingredients = new StringBuilder();
+        for(int i = 0; i<seasonIngredients.size(); i++) {
+            ingredients.append(seasonIngredients.get(i) + ",+");
+        }
+        ingredients.deleteCharAt(ingredients.lastIndexOf(","));
+        ingredients.deleteCharAt(ingredients.lastIndexOf("+"));
+
+        JSONArray dishes = getByWine(wineSelection);
+
+        HttpResponse<JsonNode> response;
+        ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+
+        try {
+            response = Unirest.get("https://api.spoonacular.com/recipes/findByIngredients")
+                    .queryString("ingredients", ingredients)
+                    .queryString("ignorePantry", false)
+                    .queryString("number", 100)
+                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                    .asJson();
+
+            JsonNode json = response.getBody();
+            JSONArray array = json.getArray();
+
+            for(int i = 0; i<array.length(); i++) {
+                JSONObject jsonObject = array.getJSONObject(i);
+                String title = jsonObject.getString("title");
+                String imageURL = jsonObject.getString("image");
+                int id = jsonObject.getInt("id");
+
+                Recipe recipe = new Recipe(title, imageURL, id);
+
+                recipes.add(recipe);
+
+            }
+        } catch(UnirestException e) {
+
+        }
+
+        ArrayList<Recipe> recipeResults = new ArrayList<Recipe>();
+
+        for(int i = 0; i<recipes.size(); i++) {
+            boolean dishTrue = false;
+
+            for(int j = 0; j<dishes.length(); j++) {
+                String dish = dishes.getString(j);
+
+                if(recipes.get(i).getTitle().contains(dish) == true) {
+                    dishTrue = true;
+                }
+            }
+
+
+            if(dishTrue == true) {
+                recipeResults.add(recipes.get(i));
+            }
+        }
+
+        return recipeResults;
+    }
+
+    /*
      * Hämtar recept baserat på både vindruvan som är vald och säsongsingredienserna från Spoonacular.
      * @param wineSelection valda druvan
      * @param seasonIngredients lista av ingredienser som är i säsong
      * @return ett RecipeBook-objekt som innehåller alla sökresultat
-     */
+     *
     public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
         StringBuilder ingredients = new StringBuilder();
@@ -39,40 +102,59 @@ public class RecipeGetter {
 
         HttpResponse<JsonNode> response;
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
+        Random rand = new Random();
         //TODO start fetching recipes based on the different dishes in JSONArray
         for(int i = 0; i<dishes.length(); i++) {
-            try {
-                System.out.println(i);
-                response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
-                        .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
-                        .queryString("query", dishes.get(i))
-                        .queryString("includeIngredients", ingredients)
-                        .queryString("instructionsRequired", true)
-                        .queryString("number", 3)
-                        .asJson();
+            for(int j = 0; j<5; j++) {
+                try {
+                    System.out.println(i);
+                    response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
+                            .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                            .queryString("query", dishes.get(i))
+                            .queryString("includeIngredients", seasonIngredients.get(rand.nextInt(seasonIngredients.size())))
+                            .queryString("instructionsRequired", true)
+                            .queryString("number", 5)
+                            .asJson();
 
-                System.out.println(response.getBody());
-                JsonNode json = response.getBody();
-                JSONObject jsonObject = json.getObject();
-                JSONArray array = jsonObject.getJSONArray("results");
-                for(int j = 0; j<array.length(); j++) {
-                    JSONObject recipe = array.getJSONObject(j);
-                    int id = recipe.getInt("id");
-                    String imageURL = recipe.getString("image");
-                    String title = recipe.getString("title");
+                    System.out.println(response.getBody());
+                    JsonNode json = response.getBody();
+                    JSONObject jsonObject = json.getObject();
+                    JSONArray array = jsonObject.getJSONArray("results");
+                    for(int k = 0; k<array.length(); k++) {
+                        JSONObject recipe = array.getJSONObject(k);
+                        int id = recipe.getInt("id");
+                        String imageURL = recipe.getString("image");
+                        String title = recipe.getString("title");
 
-                    Recipe newRecipe = new Recipe(title, imageURL, id);
-                    recipes.add(newRecipe);
+                        Recipe newRecipe = new Recipe(title, imageURL, id);
+                        recipes.add(newRecipe);
+                    }
+
+                } catch(UnirestException e) {
+
                 }
-
-            } catch(UnirestException e) {
-
             }
 
         }
 
-        return recipes;
-    }
+        //Remove duplicates
+        ArrayList<Recipe> recipesNoDupes = new ArrayList<Recipe>();
+        for(int i = 0; i<recipes.size(); i++) {
+
+            boolean dupe = false;
+
+            for(int j = 0; j<recipesNoDupes.size(); j++) {
+                if(recipesNoDupes.get(j).getId() == recipes.get(i).getId()) {
+                    dupe = true;
+                }
+            }
+
+            if(dupe == false) {
+                recipesNoDupes.add(recipes.get(i));
+            }
+        }
+        return recipesNoDupes;
+    }*/
 
     public Recipe getById(int id) {
         //Om något går fel så returneras ett recipe-objekt med titeln "No recipe found"
@@ -143,91 +225,4 @@ public class RecipeGetter {
         return null;
     }
 
-
-
-    /*public void getRecipes(String ingredients) {
-
-        HttpResponse<JsonNode> response;
-
-        try {
-            response = Unirest.get("https://api.spoonacular.com/recipes/findByIngredients")
-                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
-                    .queryString("ingredients", ingredients)
-                    .queryString("number", 2)
-                    .queryString("ignorePantry", false)
-                    .asJson();
-
-
-            getRecipeInfo(response);
-
-        } catch (UnirestException e) {
-
-        }
-    }
-
-    public void getRecipeInfo(HttpResponse<JsonNode> response) {
-
-        JsonNode json = response.getBody();
-        JSONArray recipes = json.getArray();
-        StringBuilder ids = new StringBuilder();
-
-        for (int i = 0; i < recipes.length(); i++) {
-            JSONObject recipe = recipes.getJSONObject(i);
-            int id = recipe.getInt("id");
-            String title = recipe.getString("title");
-            System.out.println(id);
-            System.out.println(title);
-            ids.append(id + ",");
-
-
-        }
-        ids.deleteCharAt(ids.lastIndexOf(","));
-        System.out.println(ids.toString());
-
-        HttpResponse<JsonNode> response2;
-
-        try {
-            response2 = Unirest.get("https://api.spoonacular.com/recipes/informationBulk")
-                    .queryString("ids", ids.toString())
-                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
-                    .asJson();
-
-            //System.out.println(response2.getBody());
-            printRecipes(response2);
-
-        } catch (UnirestException e) {
-
-        }
-
-
-    }
-
-    public void printRecipes(HttpResponse<JsonNode> response2) {
-
-        JsonNode json = response2.getBody();
-        JSONArray recipes = json.getArray();
-
-        for (int i = 0; i < recipes.length(); i++) {
-            JSONObject recipe = recipes.getJSONObject(i);
-
-
-            System.out.println(recipe.getString("title"));
-            JSONArray ingredients = recipe.getJSONArray("extendedIngredients");
-            for (int j = 0; j < ingredients.length(); j++) {
-                JSONObject ingredient = ingredients.getJSONObject(j);
-                System.out.print(ingredient.getString("name") + ", ");
-            }
-            System.out.println();
-            System.out.println(recipe.getString("summary"));
-            System.out.println(recipe.getString("sourceUrl"));
-        }
-    }
-
-    public static void main(String[] args) {
-
-        RecipeGetter rg = new RecipeGetter();
-        Recipe recipe = rg.getById(716429);
-
-        System.out.println(recipe.toString());
-    }*/
 }
