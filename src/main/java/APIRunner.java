@@ -25,10 +25,16 @@ public class APIRunner {
                     new ModelAndView(null, "templates/frontpage.html"));
         });
 
-        get("/search/:recipes", (request, response) -> {
-            //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("wine"));
+        get("/search/:grape", (request, response) -> {
+//            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
+//            System.out.println("test");
 
-            ArrayList<Recipe> recipes = new ArrayList<>();
+            ArrayList<Recipe> recipes = controller.getRecipeArray("merlot");
+//            for (Recipe r : recipes){
+//                System.out.println(r.title);
+//            }
+
+            //ArrayList<Recipe> recipes = new ArrayList<>();
 
             //Testrecept för att kunna visa något i webbläsaren.
             for (int i = 0; i < 5; i++) {
@@ -70,10 +76,16 @@ public class APIRunner {
         get("/recipe/:id", (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
+            ArrayList ingredients = new ArrayList();
+            for (int i = 0; i < recipe.ingredients.length; i++) {
+                ingredients.add(recipe.ingredients[i]);
+            }
+
             HashMap recipeMap = new HashMap();
+            recipeMap.put("grape", "skicka med druvan här på något vis i API-runner");
             recipeMap.put("title", recipe.title);
-            recipeMap.put("ingredients", recipe.ingredients);
             recipeMap.put("description", recipe.description);
+            recipeMap.put("ingredients", ingredients);
             recipeMap.put("id", recipe.id);
             recipeMap.put("imageURL", recipe.imageURL);
 
@@ -87,23 +99,9 @@ public class APIRunner {
                         )
                 );
             }
-
             assert response != null;
-            //System.out.println(response.body());
             return response.body();
         });
-
-
-//        post("/", (req, res) -> {
-//            try {
-//                Recipe recipe = gson.fromJson(req.body(), Recipe.class);
-//                controller.addRecipe(recipe);
-//            } catch (Exception e) {
-//                System.out.println(e);
-//            }
-//            return "";
-//        });
-
     }
 
     private static String preferredResponseType(Request request) {

@@ -15,6 +15,7 @@ public class FoodInSeason {
     public FoodInSeason() {
         currentMonth = new CurrentMonth().getCurrentMonth();
         ingredientsInSeason = new ArrayList<>();
+        getFoodsInSeason();
     }
 
     public void getFoodsInSeason() {
@@ -58,13 +59,13 @@ public class FoodInSeason {
     }
 
     //Main-metod för att testa hätmning från säsongsmat
-    public static void main(String[] args) {
-        FoodInSeason prog = new FoodInSeason();
-        prog.getFoodsInSeason();
-        for (String ingredient: prog.getIngredientsInSeason()
-             ) {
-            System.out.println(ingredient);
-        }
-    }
+//    public static void main(String[] args) {
+//        FoodInSeason prog = new FoodInSeason();
+//        prog.getFoodsInSeason();
+//        for (String ingredient: prog.getIngredientsInSeason()
+//             ) {
+//            System.out.println(ingredient);
+//        }
+//    }
     
 }
