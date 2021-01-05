@@ -1,3 +1,4 @@
   function search(id) {
-    alert(id);
+    console.log(id);
+
   }
