@@ -38,6 +38,8 @@ body {
 
 .nav a:hover {
     text-decoration: underline;
+    text-decoration-thickness: 10%;
+    background-color: #f1f1f1;
 }
 
 
@@ -90,6 +92,7 @@ body {
     font-size: 20px;
     text-decoration: none !important;
     display: block;
+    line-height: 40px;
 }
   
 .dropdown-content a:hover {
@@ -103,6 +106,7 @@ body {
 .dropdown:hover .dropbtn {
     height: 80px;
     text-decoration: underline;
+    text-decoration-thickness: 10%;
 }
   
 /* --- END - Header --- */
