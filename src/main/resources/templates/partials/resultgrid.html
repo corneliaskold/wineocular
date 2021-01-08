@@ -8,16 +8,19 @@
         {% for recipe in recipes %}
         <div class="result-item">
 
-            <div class="polaroid">
-                <div class="result-image">
-                    <img src="{{ recipe.imageURL }}">
-                </div>
+            <a href="{{ recipe.details }}">
+                <div class="polaroid">
 
-                <div class="result-title">
-                    <h3>{{ recipe.title }}</h3>
-                    <p><a href="{{ recipe.details }}">Länk till receptet</a></p>
+                    <div class="result-image">
+                        <img src="{{ recipe.imageURL }}">
+                    </div>
+
+                    <div class="result-title">
+                        <h3>{{ recipe.title | abbreviate(30) }}</h3> <!-- Abbreviate filter för max character-->
+                    </div>
+
                 </div>
-            </div>
+            </a>
 
         </div>
         {% endfor %}

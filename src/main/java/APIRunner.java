@@ -19,6 +19,8 @@ public class APIRunner {
         Gson gson = new Gson();
         Controller controller = new Controller();
 
+        exception(Exception.class, (e, req, res) -> e.printStackTrace());
+
         //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
@@ -40,7 +42,7 @@ public class APIRunner {
             for (int i = 0; i < 5; i++) {
                 Recipe recipe = new Recipe();
                 recipe.id = 715537 + i;
-                recipe.title = "Testrecept" + i;
+                recipe.title = "Te str ece pt fw u ehf uwehfuwef uwehf uwef fuwehf uweh fuweh f" + i;
                 recipe.imageURL = "https://spoonacular.com/recipeImages/" + recipe.id + "-312x231.jpg";
                 recipes.add(recipe);
             }
