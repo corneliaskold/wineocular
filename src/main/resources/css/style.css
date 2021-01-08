@@ -41,15 +41,14 @@ body {
     text-decoration-thickness: 10%;
 }
 
+.nav .logo:hover {
+    text-decoration: none;
+}
 
 .nav .logo {
     display: flex;
     font-family: 'Pacifico', sans-serif;
     font-size: 40px;
-}
-
-.nav .logo a {
-    text-decoration: none !important;
 }
 
 .left-items {
@@ -318,6 +317,12 @@ body {
     grid-area: left-up;
     padding: 20px;
   }
+
+.recipe-grid-item1 img {
+    border: 1px solid #000000;
+    width: 480px;
+    height: 320px;
+}
 
 .recipe-grid-item2 {
     grid-area: left-bottom;
