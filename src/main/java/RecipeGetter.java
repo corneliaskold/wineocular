@@ -225,8 +225,4 @@ public class RecipeGetter {
         }
         return null;
     }
-
-    public static void main(String[] args) {
-        RecipeGetter rg = new RecipeGetter();
-    }
 }
