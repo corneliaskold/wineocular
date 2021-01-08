@@ -291,7 +291,7 @@ body {
     background-color:white;
     border: 1px solid;
     padding-top: 20px;
-    box-shadow: 5px 5px rgb(129, 129, 129);
+    box-shadow: 5px 5px rgb(129, 129, 129, 0.3);
 }
 
 .result-title {
