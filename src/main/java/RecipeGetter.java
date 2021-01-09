@@ -19,7 +19,13 @@ public class RecipeGetter {
             "4a3aec7e117042bc855d072c2b7e37b1",
             "cae37f32b37e4c3a9375f05f796efd79",
             "80a77f2c371643a584df540c4185d2f3",
-            "42852e6e405b451e8df79f42514d78ab"};
+            "42852e6e405b451e8df79f42514d78ab",
+            "e4cefaa2e1444732997af8bd9f4728af",
+            "5b9d6410756941408198e435862ed407",
+            "15ed5962188d48b8a844de37b82d2421",
+            "fa4bb03f978c472093b016d2ed0e9f34",
+            "cd24a451453140f8ab68dac3c7382bdb",
+            "a7e72d0e97ff42b39fac4c20cc1a51bc"};
 
     public RecipeGetter() {
         checkAPIkey();
@@ -33,7 +39,7 @@ public class RecipeGetter {
 
         for(int i = 0; i<apiKeys.length; i++) {
             try {
-                System.out.println(apiKeys[i]);
+                //System.out.println(apiKeys[i]);
                 response = Unirest.get("https://api.spoonacular.com/food/converse/suggest")
                         .queryString("apiKey", apiKeys[i])
                         .queryString("query", "tell")
@@ -47,7 +53,7 @@ public class RecipeGetter {
                 if(quotaList != null) {
                     String quotaString = (String)quotaList.get(0);
                     double temp = Double.parseDouble(quotaString);
-                    System.out.println(quotaString);
+                    //System.out.println(quotaString);
                     if(temp < quota) {
                      quota = temp;
                         newApiKey = apiKeys[i];
