@@ -24,19 +24,19 @@ public class FoodInSeason {
             case "december":
             case "januari":
             case "februari":
-                return "Winter";
+                return "winter";
             case "mars":
             case "april":
             case "maj":
-                return "Spring";
+                return "spring";
             case "juni":
             case "juli":
             case "augusti":
-                return "Summer";
+                return "summer";
             case "september":
             case "oktober":
             case "november":
-                return "Autumn";
+                return "autumn";
 
             default:
                 return "Out of season";
@@ -83,13 +83,6 @@ public class FoodInSeason {
 
     public ArrayList<String> getIngredientsInSeason() {
         return ingredientsInSeason;
-    }
-
-   // Main-metod för att testa hätmning från säsongsmat
-    public static void main(String[] args) {
-        FoodInSeason prog = new FoodInSeason();
-        System.out.println(
-        prog.getIngredientsInSeason());
     }
 
 }

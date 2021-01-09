@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public enum Grapes {
     chardonnay(
             "Chardonnay",
@@ -120,7 +117,6 @@ public enum Grapes {
                     "cabernet sauvignon."
     );
 
-
     public final String title;
     public final String description;
 
@@ -128,5 +124,4 @@ public enum Grapes {
         this.title = title;
         this.description = description;
     }
-
 }
