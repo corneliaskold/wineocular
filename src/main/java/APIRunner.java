@@ -18,6 +18,7 @@ public class APIRunner {
 
         Gson gson = new Gson();
         Controller controller = new Controller();
+        String currentSeason = controller.getCurrentSeason();
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
@@ -28,15 +29,16 @@ public class APIRunner {
         });
 
         get("/search/:grape", (request, response) -> {
+           // System.out.println(request.params("grape"));
 //            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
 //            System.out.println("test");
 
-            ArrayList<Recipe> recipes = controller.getRecipeArray("merlot");
+//            ArrayList<Recipe> recipes = controller.getRecipeArray("merlot");
 //            for (Recipe r : recipes){
 //                System.out.println(r.title);
 //            }
 
-            //ArrayList<Recipe> recipes = new ArrayList<>();
+            ArrayList<Recipe> recipes = new ArrayList<>();
 
             //Testrecept för att kunna visa något i webbläsaren.
             for (int i = 0; i < 5; i++) {
@@ -49,11 +51,13 @@ public class APIRunner {
 
             // Plockar ut info som ska presenteras för varje recept
             ArrayList<Map> recipeList = new ArrayList<Map>();
+
             for (Recipe r : recipes) {
                 HashMap map = new HashMap();
                 map.put("title", r.title);
                 map.put("imageURL", r.imageURL);
                 map.put("details", "http://localhost:2020/recipe/" + r.id);
+
                 recipeList.add(map);
             }
 
@@ -64,6 +68,8 @@ public class APIRunner {
 
                 Map model = new HashMap();
                 model.put("recipes", recipeList);
+                model.put("season", controller.getCurrentSeason());
+                model.put("grape", request.params("grape"));
 
                 response.body(new PebbleTemplateEngine().render(
                         new ModelAndView(model, "templates/results.html"))
@@ -84,7 +90,7 @@ public class APIRunner {
             }
 
             HashMap recipeMap = new HashMap();
-            recipeMap.put("grape", "skicka med druvan här på något vis i API-runner");
+            recipeMap.put("grape", request.params("grape"));
             recipeMap.put("title", recipe.title);
             recipeMap.put("description", recipe.description);
             recipeMap.put("ingredients", ingredients);
