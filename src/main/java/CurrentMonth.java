@@ -34,8 +34,4 @@ public class CurrentMonth {
         return englishToSwedish.get(month);
     }
 
-//    public static void main(String[] args) {
-//        System.out.println(new CurrentMonth().getMonth());
-//    }
-
 }
