@@ -18,6 +18,33 @@ public class FoodInSeason {
         getFoodsInSeason();
     }
 
+    public String getcurrentSeason() {
+//        currentMonth = "november"; // för att ändra säsong manuellt
+        switch (currentMonth) {
+            case "december":
+            case "januari":
+            case "februari":
+                return "Winter";
+            case "mars":
+            case "april":
+            case "maj":
+                return "Spring";
+            case "juni":
+            case "juli":
+            case "augusti":
+                return "Summer";
+            case "september":
+            case "oktober":
+            case "november":
+                return "Autumn";
+
+            default:
+                return "Out of season";
+        }
+
+
+    }
+
     public void getFoodsInSeason() {
         HttpResponse<JsonNode> response;
 
@@ -58,14 +85,11 @@ public class FoodInSeason {
         return ingredientsInSeason;
     }
 
-    //Main-metod för att testa hätmning från säsongsmat
-//    public static void main(String[] args) {
-//        FoodInSeason prog = new FoodInSeason();
-//        prog.getFoodsInSeason();
-//        for (String ingredient: prog.getIngredientsInSeason()
-//             ) {
-//            System.out.println(ingredient);
-//        }
-//    }
-    
+   // Main-metod för att testa hätmning från säsongsmat
+    public static void main(String[] args) {
+        FoodInSeason prog = new FoodInSeason();
+        System.out.println(
+        prog.getIngredientsInSeason());
+    }
+
 }
