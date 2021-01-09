@@ -142,27 +142,6 @@ body {
 
 /* --- END - Hero --- */
 
-/* --- START - Choose Wine --- */
-
-.choose {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #D0D0D0;
-    background-position: center;
-
-    height: 675px;
-}
-
-.choose article {
-    width: 50%;
-    text-align: center;
-    padding: 20px;
-}
-
-/* --- END - Choose Wine--- */
-
 /* --- START - Seasonal --- */
 
 .seasonal {
