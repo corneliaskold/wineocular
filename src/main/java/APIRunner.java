@@ -9,8 +9,7 @@ import static spark.Spark.*;
 
 public class APIRunner {
 
-    public APIRunner() {
-    }
+    public APIRunner() {}
 
     public static void main(String[] args) {
         port(2020);
@@ -18,7 +17,6 @@ public class APIRunner {
 
         Gson gson = new Gson();
         Controller controller = new Controller();
-        String currentSeason = controller.getCurrentSeason();
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
@@ -29,16 +27,9 @@ public class APIRunner {
         });
 
         get("/search/:grape", (request, response) -> {
-           // System.out.println(request.params("grape"));
 //            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
-//            System.out.println("test");
 
-//            ArrayList<Recipe> recipes = controller.getRecipeArray("merlot");
-//            for (Recipe r : recipes){
-//                System.out.println(r.title);
-//            }
-
-            ArrayList<Recipe> recipes = new ArrayList<>();
+            ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
             //Testrecept för att kunna visa något i webbläsaren.
             for (int i = 0; i < 5; i++) {
@@ -125,5 +116,9 @@ public class APIRunner {
         }
         return types.get(0);
     }
+
+
+
+
 }
 
