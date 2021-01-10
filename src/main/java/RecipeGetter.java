@@ -216,9 +216,10 @@ public class RecipeGetter {
 
         checkAPIkey();
         HttpResponse<JsonNode> response;
+        String requestURL = "https://api.spoonacular.com/recipes/" + id + "/analyzedInstructions";
         StringBuilder result = new StringBuilder();
         try {
-            response = Unirest.get("https://api.spoonacular.com/recipes/324694/analyzedInstructions")
+            response = Unirest.get(requestURL)
                     .queryString("apiKey", currentApiKey)
                     .queryString("stepBreakdown", false)
                     .asJson();
