@@ -20,6 +20,8 @@ public class APIRunner {
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
+
+
         //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
@@ -28,7 +30,6 @@ public class APIRunner {
 
         get("/search/:grape", (request, response) -> {
 //            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
-
             ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
             //Testrecept för att kunna visa något i webbläsaren.
@@ -72,7 +73,7 @@ public class APIRunner {
         });
 
         //returnerar ett recept med id
-        get("/recipe/:id", (request, response) -> {
+        get("/recipe/:id",  (request, response) -> {
             Recipe recipe = controller.getRecipeById(Integer.parseInt(request.params("id")));
 
             ArrayList ingredients = new ArrayList();
@@ -88,7 +89,7 @@ public class APIRunner {
             recipeMap.put("id", recipe.id);
             recipeMap.put("imageURL", recipe.imageURL);
 
-            if (preferredResponseType(request).equals("application/json")) {
+            if (preferredResponseType(request).equals("application/json") || queryParam(request).equals("application/json")) {
                 response.type("application/json");
                 response.body(gson.toJson(recipe, Recipe.class));
             } else {
@@ -98,14 +99,20 @@ public class APIRunner {
                         )
                 );
             }
+
             assert response != null;
             return response.body();
         });
+
     }
 
     private static String preferredResponseType(Request request) {
+        // Ibland skickar en klient en lista av format som den önskar.
+        // Här splittar vi upp listan och tar bort eventuella mellanslag.
         List<String> types = Arrays.asList(request.headers("Accept").split("\\s*,\\s*"));
-        for (String type : types) {
+
+        // Gå igenom listan av format och skicka tillbaka det första som vi stöder
+        for (String type: types) {
             switch (type) {
                 case "application/json":
                 case "application/xml":
@@ -114,10 +121,22 @@ public class APIRunner {
                 default:
             }
         }
+
+        // Om vi inte stöder något av formaten, skicka tillbaka det första formatet
         return types.get(0);
     }
 
 
+    private static String queryParam(Request request){
+        String type = "";
+
+        if (request.queryParams("format") == null) {
+            type = "text/html";
+        } else if (request.queryParams("format").equals("json")){
+            type = "application/json";
+        }
+        return type;
+    }
 
 
 }
