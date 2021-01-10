@@ -1,5 +1,7 @@
   function search(id) {
-    console.log(id);
-    var url = "http://localhost:2020/search/" + id;
-    location.href=url;
+    var fullUrl = location.protocol + '//' + location.hostname + ':' + location.port;
+    location.href = fullUrl + "/search/" + id;
   }
+
+
+  

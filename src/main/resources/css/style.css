@@ -38,17 +38,17 @@ body {
 
 .nav a:hover {
     text-decoration: underline;
+    text-decoration-thickness: 10%;
 }
 
+.nav .logo:hover {
+    text-decoration: none;
+}
 
 .nav .logo {
     display: flex;
     font-family: 'Pacifico', sans-serif;
     font-size: 40px;
-}
-
-.nav .logo a {
-    text-decoration: none !important;
 }
 
 .left-items {
@@ -90,10 +90,11 @@ body {
     font-size: 20px;
     text-decoration: none !important;
     display: block;
+    line-height: 40px;
 }
   
 .dropdown-content a:hover {
-      background-color: #f1f1f1;
+    background-color: #e2e2e2;
 }
   
 .dropdown:hover .dropdown-content {
@@ -103,6 +104,7 @@ body {
 .dropdown:hover .dropbtn {
     height: 80px;
     text-decoration: underline;
+    text-decoration-thickness: 10%;
 }
   
 /* --- END - Header --- */
@@ -140,27 +142,6 @@ body {
 
 /* --- END - Hero --- */
 
-/* --- START - Choose Wine --- */
-
-.choose {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    background-color: #D0D0D0;
-    background-position: center;
-
-    height: 675px;
-}
-
-.choose article {
-    width: 50%;
-    text-align: center;
-    padding: 20px;
-}
-
-/* --- END - Choose Wine--- */
-
 /* --- START - Seasonal --- */
 
 .seasonal {
@@ -174,6 +155,7 @@ body {
 
     border-left: 1px solid #383838;
     border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
 
     height: 440px;
 }
@@ -183,7 +165,6 @@ body {
     text-align: center;
     width: 60%;
     padding: 20px;
-
 }
 
 .seasonal article h1 {
@@ -237,7 +218,7 @@ body {
   }
 
 .grape-item:hover {
-    background-color: #f1f1f1;
+    background-color: #e2e2e2;
 }
 
 .grape-item a {
@@ -289,7 +270,11 @@ body {
     background-color:white;
     border: 1px solid;
     padding-top: 20px;
-    box-shadow: 5px 5px rgb(129, 129, 129);
+    box-shadow: 5px 5px rgb(129, 129, 129, 0.3);
+}
+
+.polaroid:hover {
+    background-color: #e2e2e2;
 }
 
 .result-title {
@@ -297,6 +282,18 @@ body {
     padding-left: 20px;
     line-height: 0;
 }
+
+.result-item a {
+    color: #000000;
+    text-decoration: none;
+}
+
+.result-image img {
+    border: 1px solid #000000;
+    width: 340px;
+    height: 240px;
+}
+
 /* --- END - Results --- */
 
 /* --- START - Recipe --- */
@@ -315,6 +312,12 @@ body {
     grid-area: left-up;
     padding: 20px;
   }
+
+.recipe-grid-item1 img {
+    border: 1px solid #000000;
+    width: 480px;
+    height: 320px;
+}
 
 .recipe-grid-item2 {
     grid-area: left-bottom;
@@ -341,7 +344,6 @@ body {
 /* --- START - Footer --- */
 footer {
     background-color: #D0D0D0;
-    border-top: 1px solid #000000;
 }
 
 .ft-main {

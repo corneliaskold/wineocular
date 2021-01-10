@@ -3,8 +3,6 @@ import com.mashape.unirest.http.*;
 import com.mashape.unirest.http.exceptions.UnirestException;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -17,7 +15,15 @@ public class RecipeGetter {
             "beade7dbaeb243d4beb34dff964ccd2c",
             "47849262aafc4f9e913a93b1c17550ee",
             "4a3aec7e117042bc855d072c2b7e37b1",
-            "cae37f32b37e4c3a9375f05f796efd79"};
+            "cae37f32b37e4c3a9375f05f796efd79",
+            "80a77f2c371643a584df540c4185d2f3",
+            "42852e6e405b451e8df79f42514d78ab",
+            "e4cefaa2e1444732997af8bd9f4728af",
+            "5b9d6410756941408198e435862ed407",
+            "15ed5962188d48b8a844de37b82d2421",
+            "fa4bb03f978c472093b016d2ed0e9f34",
+            "cd24a451453140f8ab68dac3c7382bdb",
+            "a7e72d0e97ff42b39fac4c20cc1a51bc"};
 
     public RecipeGetter() {
         checkAPIkey();
@@ -31,6 +37,7 @@ public class RecipeGetter {
 
         for(int i = 0; i<apiKeys.length; i++) {
             try {
+                //System.out.println(apiKeys[i]);
                 response = Unirest.get("https://api.spoonacular.com/food/converse/suggest")
                         .queryString("apiKey", apiKeys[i])
                         .queryString("query", "tell")
@@ -40,11 +47,15 @@ public class RecipeGetter {
                 Headers headers = response.getHeaders();
                 headers.get("X-API-Quota-Used");
                 List quotaList = headers.get("X-API-Quota-Used");
-                String quotaString = (String)quotaList.get(0);
-                double temp = Double.parseDouble(quotaString);
-                if(temp < quota) {
-                    quota = temp;
-                    newApiKey = apiKeys[i];
+
+                if(quotaList != null) {
+                    String quotaString = (String)quotaList.get(0);
+                    double temp = Double.parseDouble(quotaString);
+                    //System.out.println(quotaString);
+                    if(temp < quota) {
+                     quota = temp;
+                        newApiKey = apiKeys[i];
+                    }
                 }
             } catch(UnirestException e) {
 
@@ -144,9 +155,11 @@ public class RecipeGetter {
         HttpResponse<JsonNode> response;
         String[] ingredients;
         String title;
-        StringBuilder description;
+        String description;
         String imageURL;
+        String instructions;
         String requestURL = "https://api.spoonacular.com/recipes/" + id + "/information";
+
         try {
 
             response = Unirest.get(requestURL)
@@ -162,30 +175,78 @@ public class RecipeGetter {
 
             for(int i = 0; i<ingredientResults.length(); i++) {
                 JSONObject ingredientName = ingredientResults.getJSONObject(i);
-                ingredients[i] = ingredientName.getString("name");
+                int amount = ingredientName.getInt("amount");
+                String newIngredient = amount + " " + ingredientName.getString("unit") + " " + ingredientName.getString("name");
+
+                ingredients[i] = newIngredient;
             }
 
             title = jsonObject.getString("title");
 
-            description = new StringBuilder(jsonObject.getString("summary"));
+            description = removeHTMLTags(jsonObject.getString("summary"));
 
-            //Loops through the description and removes HTML-tags
-            int x = 0;
-            while(x == 0) {
-                description.replace(description.lastIndexOf("<"), description.lastIndexOf(">")+1, "");
-                if(description.lastIndexOf(">") == -1) {
-                    x = -1;
-                }
-            }
             imageURL = jsonObject.getString("image");
 
-            recipeResult = new Recipe(title, imageURL, id, description.toString(), ingredients);
+            instructions = getInstructionsByID(id);
+
+            recipeResult = new Recipe(title, imageURL, id, description, ingredients, instructions);
 
         } catch (UnirestException e) {
 
         }
                 
         return recipeResult;
+    }
+
+    private String removeHTMLTags(String string) {
+        StringBuilder description = new StringBuilder(string);
+
+        int x = 0;
+        while(x == 0) {
+            description.replace(description.lastIndexOf("<"), description.lastIndexOf(">")+1, "");
+            if(description.lastIndexOf(">") == -1) {
+                x = -1;
+            }
+        }
+
+        return description.toString();
+    }
+
+    private String getInstructionsByID(int id) {
+
+        checkAPIkey();
+        HttpResponse<JsonNode> response;
+        String requestURL = "https://api.spoonacular.com/recipes/" + id + "/analyzedInstructions";
+        StringBuilder result = new StringBuilder();
+        try {
+            response = Unirest.get(requestURL)
+                    .queryString("apiKey", currentApiKey)
+                    .queryString("stepBreakdown", false)
+                    .asJson();
+
+            JsonNode json = response.getBody();
+            JSONArray instructions = json.getArray();
+
+
+            for (int i = 0; i<instructions.length(); i++) {
+                JSONObject stepSection = instructions.getJSONObject(i);
+
+                result.append(stepSection.getString("name") + "\n");
+
+                JSONArray steps = stepSection.getJSONArray("steps");
+
+                for(int j = 0; j<steps.length(); j++) {
+                    JSONObject stepStep = steps.getJSONObject(j);
+                    result.append(stepStep.getInt("number") + "\n");
+                    result.append(stepStep.getString("step") + "\n");
+                }
+            }
+
+        } catch(UnirestException e) {
+
+        }
+
+        return result.toString();
     }
 
     /**
@@ -203,7 +264,7 @@ public class RecipeGetter {
         try {
             wineResponse = Unirest.get("https://api.spoonacular.com/food/wine/dishes")
                     .queryString("wine", wineSelection)
-                    .queryString("apiKey", "cae37f32b37e4c3a9375f05f796efd79")
+                    .queryString("apiKey", currentApiKey)
                     .asJson();
 
 
@@ -218,5 +279,4 @@ public class RecipeGetter {
         }
         return null;
     }
-
 }
