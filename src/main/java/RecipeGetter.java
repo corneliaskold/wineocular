@@ -71,7 +71,7 @@ public class RecipeGetter {
      * Hämtar recept baserat på både vindruvan som är vald och säsongsingredienserna från Spoonacular.
      * @param wineSelection valda druvan
      * @param seasonIngredients lista av ingredienser som är i säsong
-     * @return ett RecipeBook-objekt som innehåller alla sökresultat
+     * @return ett ArrayList-objekt som innehåller alla Recipe-objekt (sökresultat)
      */
     public ArrayList<Recipe> getByWineAndSeason(String wineSelection, ArrayList<String> seasonIngredients) {
 
