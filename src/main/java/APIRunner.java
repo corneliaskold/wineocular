@@ -28,6 +28,12 @@ public class APIRunner {
 
         get("/search/:grape", (request, response) -> {
             //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
+
+            /**
+             * VIKTIGT MEDDELANDE!
+             * TODO: detta segment är endast för test och slippa slösa points hos spoonacular
+             * Ska tas bort innan koden lämnas in och den bortkommenterade metoden ovan ska användas.
+             */
             ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
             //Testrecept för att kunna visa något i webbläsaren.
@@ -38,6 +44,10 @@ public class APIRunner {
                 recipe.imageURL = "https://spoonacular.com/recipeImages/" + recipe.id + "-312x231.jpg";
                 recipes.add(recipe);
             }
+
+            /**
+             * Slut på meddelande...
+             */
 
             // Plockar ut info som ska presenteras för varje recept
             ArrayList<Map> recipeList = new ArrayList<Map>();
@@ -58,7 +68,6 @@ public class APIRunner {
 
                 Map model = new HashMap();
                 model.put("recipes", recipeList);
-                model.put("season", controller.getCurrentSeason());
                 model.put("grape", request.params("grape"));
 
                 response.body(new PebbleTemplateEngine().render(

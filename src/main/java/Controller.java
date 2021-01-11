@@ -4,16 +4,10 @@ import java.util.ArrayList;
 public class Controller {
     private RecipeGetter recipeGetter;
     private FoodInSeason foodInSeason;
-    private String currentSeason;
 
     public Controller() {
         foodInSeason = new FoodInSeason();
         recipeGetter = new RecipeGetter();
-        currentSeason = foodInSeason.getcurrentSeason();
-    }
-
-    public String getCurrentSeason() {
-        return currentSeason;
     }
 
     public Recipe getRecipeById(int id) {
@@ -67,10 +61,6 @@ public class Controller {
         }
         return resultList;
     }*/
-
-//    public static void main(String[] args) {
-//        new Controller();
-//    }
-
+    
 }
 
