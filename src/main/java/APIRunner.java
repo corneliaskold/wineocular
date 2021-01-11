@@ -20,8 +20,6 @@ public class APIRunner {
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
-
-
         //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
@@ -30,6 +28,12 @@ public class APIRunner {
 
         get("/search/:grape", (request, response) -> {
             //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
+
+            /**
+             * VIKTIGT MEDDELANDE!
+             * TODO: Detta segment ska tas bort innan koden lämnas in, endast för att visa testrecept och slippa
+             * slösa points hos spoonacular. Arraylisen i kommentaren ovan ska användas!
+             */
             ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
             //Testrecept för att kunna visa något i webbläsaren.
@@ -40,6 +44,9 @@ public class APIRunner {
                 recipe.imageURL = "https://spoonacular.com/recipeImages/" + recipe.id + "-312x231.jpg";
                 recipes.add(recipe);
             }
+            /**
+             * Slut på meddelande...
+             */
 
             // Plockar ut info som ska presenteras för varje recept
             ArrayList<Map> recipeList = new ArrayList<Map>();
@@ -60,7 +67,6 @@ public class APIRunner {
 
                 Map model = new HashMap();
                 model.put("recipes", recipeList);
-                model.put("season", controller.getCurrentSeason());
                 model.put("grape", request.params("grape"));
 
                 response.body(new PebbleTemplateEngine().render(
@@ -126,7 +132,6 @@ public class APIRunner {
         return types.get(0);
     }
 
-
     private static String queryParam(Request request){
         String type = "";
 
@@ -137,7 +142,6 @@ public class APIRunner {
         }
         return type;
     }
-
 
 }
 
