@@ -1,19 +1,19 @@
-  function search(grape) {
+  function search(grape) {                    // Function for search grape matching with recipe
     console.log("searching: " + grape);
     $.ajax({
       url: "/search/" + grape,
       dataType: 'json'
-    }).done(function(json) {
+    }).done(function(json) {                  
       $("#root").hide();
       $("#results_wrapper").show();
-      var output = "";
-      for (var i=0; i<json.length; i++) {
+      var output = "";                        // Container presenting recipe
+      for (var i=0; i<json.length; i++) {     
         var recept = json[i];
 
-        output += '<div class="result-item" onclick="load_recept(\'' + recept.details + '\')">';
+        output += '<div class="result-item" onclick="load_recipe(\'' + recipe.details + '\')">';
         output += '<div class="polaroid">';
-        output += '<div class="result-image"><img src="' + recept.imageURL + '"></div>';
-        output += '<div class="result-title"><h3>' + recept.title + '</h3></div>';
+        output += '<div class="result-image"><img src="' + recipe.imageURL + '"></div>';
+        output += '<div class="result-title"><h3>' + recipe.title + '</h3></div>';
         output += '</div>';
         output += '</div>';
       }
@@ -21,7 +21,8 @@
     });
   }
 
-  function load_recept(url) {
+  function load_recept(url) {                 // Metod som kallas på när man klickar på ett recept i sökresultatet.
+    URL skickas via json efter GET-request
     console.log("searching url " + url);
 
     $.ajax({
@@ -54,6 +55,7 @@
 
         $('#recipe-grid-container').html(output);
 
+        $(window).scrollTop(0); // Scrollar upp sidan efter klick på valt recept i sökresultatet
 
     });
   }

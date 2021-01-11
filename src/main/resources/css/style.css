@@ -13,7 +13,8 @@ body {
 .top {
     padding-top: 80px;
 }
-/* --- START - Header--- */
+
+/* --- START - Navigation Header--- */
 .site-header {
     position: fixed;
     background-color: #ffffff;
@@ -111,7 +112,7 @@ body {
     text-decoration-thickness: 10%;
 }
   
-/* --- END - Header --- */
+/* --- END - Navigation Header --- */
 
 /* --- START - Hero --- */
 .hero {
@@ -264,9 +265,10 @@ body {
     flex-direction: column;
 
     font-size: 18px;
+    text-align: center;
+    
     padding: 20px;
 
-    text-align: center;
     cursor: pointer;
   }
 

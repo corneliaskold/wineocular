@@ -1,7 +1,8 @@
-{% extends "templates/layout/base.tpl" %}
+{% extends "templates/layout/base.tpl" %} <!-- Bas-layout för sidan -->
 
-{% block content %}
+{% block content %} <!-- Sidinnehåll -->
 
+    <!-- Hero-banner, visas bara på "första-sidan" därav ej lagd i egen template -->
     <div id="root">
         <section class="wrapper hero">
             <article>
@@ -10,17 +11,17 @@
             </article>
         </section>
     
-
+        <!-- Presentation av Röda och Vita druvor som användaren kan välja på-->
         {% include "templates/partials/redgrape.tpl" %}
 
         {% include "templates/partials/whitegrape.tpl" %}
     </div>
 
 
-    {% include "templates/partials/recipepresenter.tpl" %}
+    {% include "templates/partials/recipepresenter.tpl" %}  <!-- Presentation av valt recept-->
 
-    {% include "templates/partials/resultgrid.tpl" %}
+    {% include "templates/partials/resultgrid.tpl" %}   <!-- Sökresultat-->
 
-    {% include "templates/partials/seasonalbanner.tpl" %}
+    {% include "templates/partials/seasonalbanner.tpl" %}   <!-- Säsongsbanner-->
 
 {% endblock %}
