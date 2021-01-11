@@ -21,8 +21,6 @@ public class APIRunner {
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
 
-
-        //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
                     new ModelAndView(null, "templates/index.html"));
