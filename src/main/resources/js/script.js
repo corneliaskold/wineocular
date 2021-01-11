@@ -8,7 +8,7 @@
       $("#results_wrapper").show();
       var output = "";                        // Container som presenterar recept
       for (var i=0; i<json.length; i++) {     
-        var recept = json[i];
+        var recipe = json[i];
 
         output += '<div class="result-item" onclick="load_recipe(\'' + recipe.details + '\')">';
         output += '<div class="polaroid">';
