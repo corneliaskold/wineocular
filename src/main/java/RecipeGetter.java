@@ -157,7 +157,7 @@ public class RecipeGetter {
         String title;
         String description;
         String imageURL;
-        String instructions;
+        ArrayList<String> instructions;
         String requestURL = "https://api.spoonacular.com/recipes/" + id + "/information";
 
         try {
@@ -212,12 +212,15 @@ public class RecipeGetter {
         return description.toString();
     }
 
-    private String getInstructionsByID(int id) {
+    private ArrayList<String> getInstructionsByID(int id) {
 
         checkAPIkey();
         HttpResponse<JsonNode> response;
         String requestURL = "https://api.spoonacular.com/recipes/" + id + "/analyzedInstructions";
         StringBuilder result = new StringBuilder();
+
+        ArrayList<String> instructionResults = new ArrayList<String>();
+
         try {
             response = Unirest.get(requestURL)
                     .queryString("apiKey", currentApiKey)
@@ -227,18 +230,21 @@ public class RecipeGetter {
             JsonNode json = response.getBody();
             JSONArray instructions = json.getArray();
 
+            System.out.println(instructions.length());
 
             for (int i = 0; i<instructions.length(); i++) {
                 JSONObject stepSection = instructions.getJSONObject(i);
 
-                result.append(stepSection.getString("name") + "\n");
+//                result.append(stepSection.getString("name") + "\n");
+                instructionResults.add(stepSection.getString("name"));
 
                 JSONArray steps = stepSection.getJSONArray("steps");
-
+                System.out.println(steps.length());
                 for(int j = 0; j<steps.length(); j++) {
                     JSONObject stepStep = steps.getJSONObject(j);
-                    result.append(stepStep.getInt("number") + "\n");
-                    result.append(stepStep.getString("step") + "\n");
+                    instructionResults.add(stepStep.getInt("number") + ". " + stepStep.getString("step"));
+//                    result.append(stepStep.getInt("number") + "\n");
+//                    result.append(stepStep.getString("step") + "\n");
                 }
             }
 
@@ -246,7 +252,11 @@ public class RecipeGetter {
 
         }
 
-        return result.toString();
+        System.out.println(instructionResults.size());
+        for(int i = 0; i<instructionResults.size(); i++) {
+            System.out.println(instructionResults.get(i));
+        }
+        return instructionResults;
     }
 
     /**
@@ -278,5 +288,10 @@ public class RecipeGetter {
             System.err.println(e);
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        RecipeGetter rg = new RecipeGetter();
+        rg.getInstructionsByID(324694);
     }
 }

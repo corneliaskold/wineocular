@@ -1,10 +1,12 @@
+import java.util.ArrayList;
+
 public class Recipe {
     public String title;
     public String[] ingredients;
     public String description;
     public String imageURL;
     public int id;
-    public String instructions;
+    public ArrayList<String> instructions;
 
     public Recipe(String title, String imageURL, int id){
         this.title = title;
@@ -12,7 +14,7 @@ public class Recipe {
         this.id = id;
     }
 
-    public Recipe(String title, String imageURL, int id, String description, String[] ingredients, String instructions) {
+    public Recipe(String title, String imageURL, int id, String description, String[] ingredients, ArrayList<String> instructions) {
         this.title = title;
         this.imageURL = imageURL;
         this.id = id;

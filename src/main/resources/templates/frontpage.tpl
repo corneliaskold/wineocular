@@ -16,6 +16,9 @@
         {% include "templates/partials/whitegrape.html" %}
     </div>
 
+
+    {% include "templates/partials/recipepresenter.html" %}
+
     {% include "templates/partials/resultgrid.html" %}
 
     {% include "templates/partials/seasonalbanner.html" %}
