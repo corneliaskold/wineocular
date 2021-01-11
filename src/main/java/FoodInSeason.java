@@ -1,3 +1,7 @@
+/**
+ * Retrives ingredients in season based on current month and stores them in an Arraylist
+ */
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;

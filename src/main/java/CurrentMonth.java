@@ -1,3 +1,7 @@
+/**
+ * Translates current month from English to Swedish
+ */
+
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.HashMap;
