@@ -20,15 +20,13 @@ public class APIRunner {
 
         exception(Exception.class, (e, req, res) -> e.printStackTrace());
 
-
-
         //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
                     new ModelAndView(null, "templates/frontpage.html"));
         });
 
-        get("/search/:grape", (request, response) -> {
+        get("/:grape", (request, response) -> {
 //            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
             ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
@@ -53,23 +51,24 @@ public class APIRunner {
                 recipeList.add(map);
             }
 
-            if (preferredResponseType(request).equals("application/json")) {
-                response.type("application/json");
-                response.body(gson.toJson(recipeList));
-            } else {
+            response.body(gson.toJson(recipeList));
 
-                Map model = new HashMap();
-                model.put("recipes", recipeList);
-                model.put("season", controller.getCurrentSeason());
-                model.put("grape", request.params("grape"));
-
-                response.body(new PebbleTemplateEngine().render(
-                        new ModelAndView(model, "templates/results.html"))
-                );
-            }
+//            if (preferredResponseType(request).equals("application/json")) {
+//                response.type("application/json");
+//                response.body(gson.toJson(recipeList));
+//            } else {
+//
+//                Map model = new HashMap();
+//                model.put("recipes", recipeList);
+//                model.put("season", controller.getCurrentSeason());
+//                model.put("grape", request.params("grape"));
+//
+//                response.body(new PebbleTemplateEngine().render(
+//                        new ModelAndView(model, "templates/results.html"))
+//                );
+//            }
             assert response != null;
             return response.body();
-
         });
 
         //returnerar ett recept med id
