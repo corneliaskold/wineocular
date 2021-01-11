@@ -71,7 +71,7 @@ public class APIRunner {
         });
 
         /**
-         * Endpoint for specific recipe based on recipe.id
+         * Endpoint for specific recipe based on parameter id that should match an existing recipe.id
          * Returns a recipe-object in json format
          */
         get("/recipe/:id", (request, response) -> {
