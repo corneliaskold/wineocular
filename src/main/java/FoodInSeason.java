@@ -1,3 +1,7 @@
+/**
+ * Retrives ingredients in season from Säsongsmat API and stores in an arraylist
+ */
+
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.JsonNode;
 import com.mashape.unirest.http.Unirest;
@@ -16,33 +20,6 @@ public class FoodInSeason {
         currentMonth = new CurrentMonth().getCurrentMonth();
         ingredientsInSeason = new ArrayList<>();
         getFoodsInSeason();
-    }
-
-    public String getcurrentSeason() {
-//        currentMonth = "november"; // för att ändra säsong manuellt
-        switch (currentMonth) {
-            case "december":
-            case "januari":
-            case "februari":
-                return "winter";
-            case "mars":
-            case "april":
-            case "maj":
-                return "spring";
-            case "juni":
-            case "juli":
-            case "augusti":
-                return "summer";
-            case "september":
-            case "oktober":
-            case "november":
-                return "autumn";
-
-            default:
-                return "Out of season";
-        }
-
-
     }
 
     public void getFoodsInSeason() {
