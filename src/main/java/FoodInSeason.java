@@ -16,12 +16,18 @@ public class FoodInSeason {
     private String currentMonth;
     private ArrayList<String> ingredientsInSeason;
 
+    /**
+     * Constructor FoodInSeason, instantiates variables
+     */
     public FoodInSeason() {
         currentMonth = new CurrentMonth().getCurrentMonth();
         ingredientsInSeason = new ArrayList<>();
         getFoodsInSeason();
     }
 
+    /**
+     * Retrives the ingredients from Säsongsmat as a json-object and places them in an arrayList
+     */
     public void getFoodsInSeason() {
         HttpResponse<JsonNode> response;
 
@@ -58,6 +64,9 @@ public class FoodInSeason {
         }
     }
 
+    /**
+     * @return the arrayList containgin ingredients in season
+     */
     public ArrayList<String> getIngredientsInSeason() {
         return ingredientsInSeason;
     }

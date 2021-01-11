@@ -32,12 +32,6 @@ public class Controller {
      * @return an ArrayList with Recipe matching wine
      */
     public ArrayList<Recipe> getRecipeArray(String wine) {
-        System.out.println("Controller getRecipeArray(): " + wine);
-        for (String s : getFoodInSeason()){
-            System.out.println(s);
-        }
-
-        System.out.println(recipeGetter.getByWineAndSeason(wine, getFoodInSeason()));
         return recipeGetter.getByWineAndSeason(wine, getFoodInSeason());
     }
 
