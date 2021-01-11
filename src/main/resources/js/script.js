@@ -1,7 +1,7 @@
-  function search(id) {
-    console.log("searching: " + id);
+  function search(grape) {
+    console.log("searching: " + grape);
     $.ajax({
-      url: "/search/" + id,
+      url: "/search/" + grape,
       dataType: 'json'
     }).done(function(json) {
       $("#root").hide();
