@@ -22,8 +22,8 @@
 
   function load_recept(url) {
     console.log("searching url " + url);
-    
   }
+
 
 
   
