@@ -260,10 +260,10 @@ public class RecipeGetter {
     }
 
     /**
-     * Hämtar alla mat-typer baserat på vindruvan som angivits, genom en request till Spoonacular-API:t.
-     * Kallas enbart på av getByWineAndSeason-metoden.
-     * @param wineSelection valda vindruvan
-     * @return JSONArray av mat-typer
+     * Retrived food types based on grape from the Spoonacular API.
+     * Only used by getByWineAndSeason-method.
+     * @param wineSelection the choosen grape
+     * @return JSONArray of food types
      */
     private JSONArray getByWine(String wineSelection) {
 
