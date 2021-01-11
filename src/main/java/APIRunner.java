@@ -29,7 +29,7 @@ public class APIRunner {
         });
 
         get("/search/:grape", (request, response) -> {
-//            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
+            //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
             ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
 
             //Testrecept för att kunna visa något i webbläsaren.
