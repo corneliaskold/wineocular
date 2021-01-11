@@ -25,7 +25,7 @@ public class APIRunner {
         //TODO: just nu är model = null, vet inte riktigt vad som ska presenteras på förstasdidan eller om vi använder templates
         get("/", (request, response) -> {
             return new PebbleTemplateEngine().render(
-                    new ModelAndView(null, "templates/frontpage.tpl"));
+                    new ModelAndView(null, "templates/index.html"));
         });
 
         get("/search/:grape", (request, response) -> {

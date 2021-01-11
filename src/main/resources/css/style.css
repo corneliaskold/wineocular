@@ -281,6 +281,7 @@ body {
     text-align: left;
     padding-left: 20px;
     line-height: 0;
+    text-overflow: ellipsis;
 }
 
 .result-item a {

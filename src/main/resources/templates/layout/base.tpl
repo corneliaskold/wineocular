@@ -22,11 +22,11 @@
 </head>
 
 <body>
-    {% include "templates/partials/nav.html" %}
+    {% include "templates/partials/nav.tpl" %}
    
     {% block content %}{% endblock %} 
 
-    {% include "templates/partials/footer.html" %}
+    {% include "templates/partials/footer.tpl" %}
 </body>
 <script src="/js/script.js"></script>
 </html>
