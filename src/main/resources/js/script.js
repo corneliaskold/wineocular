@@ -21,14 +21,17 @@
     });
   }
 
-  function load_recept(url, grape) {
+  function load_recept(url) {
     console.log("searching url " + url);
 
     $.ajax({
         url: url,
         dataType: 'json'
     }).done(function(json) {
+        $("#root").hide();
+        $("#recipe-grid-container").show();
         $("#recipe_presenter").show();
+
         var recipe = json;
         var output = "";
 

@@ -22,6 +22,9 @@
 </head>
 
 <body>
+
+    <div class="top"></div>
+    
     {% include "templates/partials/nav.tpl" %}
    
     {% block content %}{% endblock %} 

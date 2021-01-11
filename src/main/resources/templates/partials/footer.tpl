@@ -17,7 +17,6 @@
                 <ul>
                     <li><a href="#">Red Wine</a></li>
                     <li><a href="#">White Wine</a></li>
-                    <li><a href="#">Rose Wine</a></li>
                 </ul>
             </div>
 
@@ -25,9 +24,9 @@
                 <h2 class="ft-title">Seasons</h2>
                 <ul>
                     <li><a href="#">Winter</a></li>
-                    <li><a href="#">Spring</a></li>
-                    <li><a href="#">Summer</a></li>
-                    <li><a href="#">Autumn</a></li>
+                    <li>Spring</li>
+                    <li>Summer</li>
+                    <li>Autumn</li>
                 </ul>
             </div>
 

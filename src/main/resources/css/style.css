@@ -10,6 +10,9 @@ body {
     margin: 0 auto;
 }
 
+.top {
+    padding-top: 80px;
+}
 /* --- START - Header--- */
 .site-header {
     position: fixed;
@@ -49,6 +52,7 @@ body {
     display: flex;
     font-family: 'Pacifico', sans-serif;
     font-size: 40px;
+    margin: 0;
 }
 
 .left-items {
@@ -115,10 +119,7 @@ body {
     justify-content: center;
     align-items: center;
     
-    height: 640px;
-
-    padding-top: 100px;
-    padding-bottom: 20px;
+    height: 620px;
 
     background-color: #8BCBFA; /* Blå  #8BCBFA */
     background-image: url(../images/winesearcher.png), url(../images/winter.png) ;
@@ -209,12 +210,14 @@ body {
 
     text-align: center;
     padding-top: 20px;
+    margin: 0;
 }
 
 .grape-item {
     display: flex;
     font-size: 18px;
     padding: 20px;
+    cursor: pointer;
   }
 
 .grape-item:hover {
@@ -235,6 +238,8 @@ body {
 /* --- START - Results --- */
 
 .results {
+    display: none;
+
     justify-content: center;
     align-items: center;
 
@@ -247,8 +252,6 @@ body {
 }
 
 .results h1 {
-    padding-top: 100px;
-
     font-family: 'Pacifico', sans-serif;
     font-size: 40px;
     font-weight: normal;
@@ -264,6 +267,7 @@ body {
     padding: 20px;
 
     text-align: center;
+    cursor: pointer;
   }
 
 .polaroid {
@@ -280,8 +284,6 @@ body {
 .result-title {
     text-align: left;
     padding-left: 20px;
-    line-height: 0;
-    text-overflow: ellipsis;
 }
 
 .result-item a {
@@ -312,7 +314,7 @@ body {
     'left-bottom right right';
 
     background-color: white;
-    padding: 100px 20px 20px 20px;
+    padding: 20px;
   }
 
 .recipe-grid-item1 {

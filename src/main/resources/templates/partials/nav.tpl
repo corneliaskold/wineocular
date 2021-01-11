@@ -13,8 +13,8 @@
                 <div class="dropdown">
                     <button class="dropbtn">GRAPES</button>
                     <div class="dropdown-content">
-                        <a href="/#red">Red Grapes</a>
-                        <a href="/#white">White Grapes</a>
+                        <a href="/">Red Grapes</a>
+                        <a href="/">White Grapes</a>
                     </div>
                 </div>
 
