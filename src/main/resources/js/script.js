@@ -9,9 +9,8 @@
       var output = "";
       for (var i=0; i<json.length; i++) {
         var recept = json[i];
-        var url = recept.details;
-        var grape = grape;
-        output += '<div class="result-item" onclick="load_recept(url, grape)">';
+
+        output += '<div class="result-item" onclick="load_recept(\'' + recept.details + '\')">';
         output += '<div class="polaroid">';
         output += '<div class="result-image"><img src="' + recept.imageURL + '"></div>';
         output += '<div class="result-title"><h3>' + recept.title + '</h3></div>';
@@ -23,7 +22,7 @@
   }
 
   function load_recept(url, grape) {
-    console.log("searching url " + url + "with grape: " + grape);
+    console.log("searching url " + url);
 
     $.ajax({
         url: url,

@@ -55,7 +55,7 @@ public class Controller {
 
     }
 
-    public ArrayList<String> getResultList(ArrayList<Recipe> recipeArrayList) {
+    /*public ArrayList<String> getResultList(ArrayList<Recipe> recipeArrayList) {
         ArrayList<String> resultList = new ArrayList<>();
         for (int i = 0; i <= recipeArrayList.size(); i++) {
             RecipeResult recipeResult = new RecipeResult(
@@ -66,7 +66,7 @@ public class Controller {
             resultList.add(gson.toJson(recipeResult, RecipeResult.class));
         }
         return resultList;
-    }
+    }*/
 
 //    public static void main(String[] args) {
 //        new Controller();
