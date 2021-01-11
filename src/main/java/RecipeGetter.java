@@ -29,6 +29,10 @@ public class RecipeGetter {
         checkAPIkey();
     }
 
+
+    /**
+     * Checks the quota left for all API-keys and changes the currentApiKey variable to the one with the least quota used.
+     */
     public void checkAPIkey() {
         HttpResponse<JsonNode> response;
 
@@ -37,7 +41,6 @@ public class RecipeGetter {
 
         for(int i = 0; i<apiKeys.length; i++) {
             try {
-                //System.out.println(apiKeys[i]);
                 response = Unirest.get("https://api.spoonacular.com/food/converse/suggest")
                         .queryString("apiKey", apiKeys[i])
                         .queryString("query", "tell")
@@ -51,7 +54,6 @@ public class RecipeGetter {
                 if(quotaList != null) {
                     String quotaString = (String)quotaList.get(0);
                     double temp = Double.parseDouble(quotaString);
-                    //System.out.println(quotaString);
                     if(temp < quota) {
                      quota = temp;
                         newApiKey = apiKeys[i];
@@ -82,24 +84,16 @@ public class RecipeGetter {
         ingredients.deleteCharAt(ingredients.lastIndexOf(","));
         ingredients.deleteCharAt(ingredients.lastIndexOf("+"));
 
-        System.out.println(ingredients);
-
         JSONArray dishes = getByWine(wineSelection);
-
-
-        if(dishes == null) {
-            System.out.println("nothing");
-            return null; //TODO proper error handling
-        }
 
         HttpResponse<JsonNode> response;
         ArrayList<Recipe> recipes = new ArrayList<Recipe>();
         Random rand = new Random();
-        //TODO start fetching recipes based on the different dishes in JSONArray
+
         for(int i = 0; i<dishes.length(); i++) {
             for(int j = 0; j<5; j++) {
                 try {
-                    System.out.println(i);
+
                     response = Unirest.get("https://api.spoonacular.com/recipes/complexSearch")
                             .queryString("apiKey", currentApiKey)
                             .queryString("query", dishes.get(i))
@@ -108,7 +102,6 @@ public class RecipeGetter {
                             .queryString("number", 5)
                             .asJson();
 
-                    System.out.println(response.getBody());
                     JsonNode json = response.getBody();
                     JSONObject jsonObject = json.getObject();
                     JSONArray array = jsonObject.getJSONArray("results");
@@ -148,6 +141,11 @@ public class RecipeGetter {
         return recipesNoDupes;
     }
 
+    /**
+     * Gets a recipe from Spoonacular based on ID and returns it as a Recipe-object.
+     * @param id id of recipe to be fetched
+     * @return Recipe-object with the id specified
+     */
     public Recipe getById(int id) {
         checkAPIkey();
         //Om något går fel så returneras ett recipe-objekt med titeln "No recipe found"
@@ -198,6 +196,11 @@ public class RecipeGetter {
         return recipeResult;
     }
 
+    /**
+     * Removes all HTML-tags from a String, and returns the edited String.
+     * @param string String to have HTML-tags removed
+     * @return String without HTML-tags
+     */
     private String removeHTMLTags(String string) {
         StringBuilder description = new StringBuilder(string);
 
@@ -212,6 +215,11 @@ public class RecipeGetter {
         return description.toString();
     }
 
+    /**
+     * Gets instructions for the specified recipe and puts them in order in an ArrayList.
+     * @param id id of recipe selected
+     * @return ArrayList of instructions in order
+     */
     private ArrayList<String> getInstructionsByID(int id) {
 
         checkAPIkey();
@@ -257,7 +265,6 @@ public class RecipeGetter {
      * @param wineSelection valda vindruvan
      * @return JSONArray av mat-typer
      */
-
     private JSONArray getByWine(String wineSelection) {
 
         checkAPIkey();
