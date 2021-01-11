@@ -86,6 +86,7 @@ public class APIRunner {
             recipeMap.put("title", recipe.title);
             recipeMap.put("description", recipe.description);
             recipeMap.put("ingredients", ingredients);
+            recipeMap.put("instructions", recipe.instructions);
             recipeMap.put("id", recipe.id);
             recipeMap.put("imageURL", recipe.imageURL);
 
