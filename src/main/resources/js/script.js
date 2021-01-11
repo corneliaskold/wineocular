@@ -1,4 +1,4 @@
-  function search(grape) {                    // Function for search grape matching with recipe
+  function search(grape) {                    // Metod för att söka på druva och matcha mot recept och skriver ut det i ett sökresultat
     console.log("searching: " + grape);
     $.ajax({
       url: "/search/" + grape,
@@ -6,7 +6,7 @@
     }).done(function(json) {                  
       $("#root").hide();
       $("#results_wrapper").show();
-      var output = "";                        // Container presenting recipe
+      var output = "";                        // Container som presenterar recept
       for (var i=0; i<json.length; i++) {     
         var recept = json[i];
 
@@ -21,8 +21,7 @@
     });
   }
 
-  function load_recept(url) {                 // Metod som kallas på när man klickar på ett recept i sökresultatet.
-    URL skickas via json efter GET-request
+  function load_recipe(url) {                 // Metod som kallas på när man klickar på ett recept i sökresultatet.
     console.log("searching url " + url);
 
     $.ajax({
