@@ -298,6 +298,12 @@ body {
 
 /* --- START - Recipe --- */
 
+.recipe {
+    border-left: 1px solid #383838;
+    border-right: 1px solid #383838;
+    border-bottom: 1px solid #383838;
+}
+
 .recipe-grid-container {
     display: grid;
     grid-template-areas:

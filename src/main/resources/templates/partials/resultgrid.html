@@ -1,32 +1,13 @@
-<section class="wrapper results">
+<section id="results_wrapper" class="wrapper results" style="display:none">
     <h1>Showing {{ grape | title }} wines matching {{ season | title }} season</h1>
 
     <!-- Hämta druva man sökt på och visa i G R A P E och vilken som är
     nuvarande säsongen och visa i S E A S O N-->
 
-    <div class="grid-container">
+    <div id="results" class="grid-container">
 
-        {% for recipe in recipes %}
-        <div class="result-item">
 
-            <a href="{{ recipe.details }}">
-                <div class="polaroid">
 
-                    <div class="result-image">
-                        <img src="{{ recipe.imageURL }}">
-                    </div>
-
-                    <div class="result-title">
-                        <h3>{{ recipe.title | abbreviate(30) }}</h3> <!-- Abbreviate filter för max character-->
-                    </div>
-
-                </div>
-            </a>
-
-        </div>
-        {% endfor %}
-
-    </div>
     </div>
 
 </section>
