@@ -260,7 +260,7 @@ public class RecipeGetter {
     }
 
     /**
-     * Retrived foodt ypes based on grape from the Spoonacular API.
+     * Retrived food types based on grape from the Spoonacular API.
      * Only used by getByWineAndSeason-method.
      * @param wineSelection the choosen grape
      * @return JSONArray of food types
