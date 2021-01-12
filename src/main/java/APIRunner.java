@@ -30,28 +30,7 @@ public class APIRunner {
          * Returns a list of recipes that are matched with the actual grape and contains ingredients in season
          */
         get("/search/:grape", (request, response) -> {
-            //ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
-
-            /**
-             * VIKTIGT MEDDELANDE!
-             * TODO: detta segment är endast för test och slippa slösa points hos spoonacular
-             * Ska tas bort innan koden lämnas in och den bortkommenterade metoden ovan ska användas.
-             */
-            ArrayList<Recipe> recipes = new ArrayList<>(); // För test och slippa slösa points hos spoonacular.
-
-            //Testrecept för att kunna visa något i webbläsaren.
-            for (int i = 0; i < 5; i++) {
-                Recipe recipe = new Recipe();
-                recipe.id = 715537 + i;
-                recipe.title = "Te str ece pt fw u ehf uwehfuwef uwehf uwef fuwehf uweh fuweh f" + i;
-                recipe.imageURL = "https://spoonacular.com/recipeImages/" + recipe.id + "-312x231.jpg";
-                recipes.add(recipe);
-            }
-
-            /**
-             * Slut på meddelande...
-             */
-
+            ArrayList<Recipe> recipes = controller.getRecipeArray(request.params("grape"));
             ArrayList<Map> recipeList = new ArrayList<Map>();
 
             for (Recipe r : recipes) {
